@@ -1,0 +1,38 @@
+{
+  "name": "venga.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon dist/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arpadvas/venga.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arpadvas/venga.io/issues"
+  },
+  "homepage": "https://github.com/arpadvas/venga.io#readme",
+  "devDependencies": {
+    "@types/body-parser": "^1.16.4",
+    "@types/debug": "0.0.29",
+    "@types/errorhandler": "0.0.30",
+    "@types/express": "^4.0.36",
+    "@types/morgan": "^1.7.32",
+    "@types/node": "^8.0.14",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.2.1",
+    "typescript": "^2.4.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "debug": "^2.6.8",
+    "errorhandler": "^1.5.0",
+    "express": "^4.15.3",
+    "morgan": "^1.8.2"
+  }
+}
