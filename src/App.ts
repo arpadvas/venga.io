@@ -1,11 +1,23 @@
 import * as path from 'path';
 import * as express from 'express';
+import mongoose = require("mongoose");
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import errorHandler = require("errorhandler");
+import { config } from "./config/reader";
 
 // import routers
 import TestRouter from './routes/TestRouter';
+
+//import interfaces
+import { IUser } from "./interfaces/user"; //import IUser
+
+//import models
+import { IModel } from "./models/model"; //import IModel
+import { IUserModel } from "./models/user"; //import IUserModel
+
+//import schemas
+import { userSchema } from "./schemas/user"; //import userSchema
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -13,10 +25,15 @@ class App {
   // ref to Express instance
   public express: express.Application;
 
+  //an instance of IModel
+  private model: IModel;
+
   //Run configuration methods on the Express instance.
   constructor() {
     this.express = express();
+    this.model = Object();
     this.middleware();
+    this.connectDB();
     this.routes();
   }
 
@@ -33,6 +50,24 @@ class App {
     });
     //error handling
     this.express.use(errorHandler());
+  }
+
+   // Configure Mongo DB
+  private connectDB(): void {
+    const MONGODB_CONNECTION: string = config.database;    
+    mongoose.Promise = global.Promise;
+
+    //connect to mongoose
+    let connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION, function(err) {
+      if (err) {
+        console.log('There is error while connecting to MongoDB: ' + err);
+      } else {
+        console.log('Successfully connected to MongoDB!');
+      }
+    });
+
+    //create models
+    this.model.user = connection.model<IUserModel>("User", userSchema);
   }
 
   // Configure API endpoints.

@@ -2,17 +2,23 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
 const express = require("express");
+const mongoose = require("mongoose");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const errorHandler = require("errorhandler");
+const reader_1 = require("./config/reader");
 // import routers
 const TestRouter_1 = require("./routes/TestRouter");
+//import schemas
+const user_1 = require("./schemas/user"); //import userSchema
 // Creates and configures an ExpressJS web server.
 class App {
     //Run configuration methods on the Express instance.
     constructor() {
         this.express = express();
+        this.model = Object();
         this.middleware();
+        this.connectDB();
         this.routes();
     }
     // Configure Express middleware.
@@ -28,6 +34,22 @@ class App {
         });
         //error handling
         this.express.use(errorHandler());
+    }
+    // Configure Mongo DB
+    connectDB() {
+        const MONGODB_CONNECTION = reader_1.config.database;
+        mongoose.Promise = global.Promise;
+        //connect to mongoose
+        let connection = mongoose.createConnection(MONGODB_CONNECTION, function (err) {
+            if (err) {
+                console.log('There is error while connecting to MongoDB: ' + err);
+            }
+            else {
+                console.log('Successfully connected to MongoDB!');
+            }
+        });
+        //create models
+        this.model.user = connection.model("User", user_1.userSchema);
     }
     // Configure API endpoints.
     routes() {
