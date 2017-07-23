@@ -32,8 +32,8 @@ export class TestRouter {
    * endpoints.
    */
   init() {
-    this.router.get('/', this.sendOk);
-    this.router.get('/error', this.sendError);
+    this.router.get("/", this.sendOk);
+    this.router.get("/error", this.sendError);
   }
 
 }
