@@ -1,7 +1,7 @@
-import {Router, Request, Response, NextFunction} from 'express';
+import { Router, Request, Response, NextFunction } from "express";
 
 export class TestRouter {
-  router: Router
+  router: Router;
 
   /**
    * Initialize the TestRouter
@@ -14,14 +14,14 @@ export class TestRouter {
   /**
    * Send OK.
    */
-  public sendOk(req: Request, res: Response, next: NextFunction) {
+  public sendOk(req: Request, res: Response, next: NextFunction): void {
         res.send({"msg": "ok"});
   }
 
   /**
    * Send error.
    */
-  public sendError(req: Request, res: Response, next: NextFunction) {
+  public sendError(req: Request, res: Response, next: NextFunction): void {
         const err = new Error("Test error");
         throw err;
   }
@@ -31,7 +31,7 @@ export class TestRouter {
    * Take each handler, and attach to one of the Express.Router's
    * endpoints.
    */
-  init() {
+  init(): void {
     this.router.get("/", this.sendOk);
     this.router.get("/error", this.sendError);
   }
