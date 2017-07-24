@@ -1,45 +1,5 @@
-<div class="jumbotron">
-  <div class="container">
-  	<div class="row">
-  		<div class="col-md-3">
-  		</div>
-  		<div class="col-md-6">
-  			<div class="panel panel-primary panel-landing">
-				<div class="panel-heading panel-custom">
-					<h3 class="panel-title">Log in!</h3>
-				</div>
-				<div class="panel-body">
-					<div class="content">
-					  <form>
-					  <div class="form-group">
-					    <input type="text" id="email" placeholder="Email address" name="email" class="form-control form-group__input"/>
-					  </div>
-					  <div class="form-group">
-					    <input type="password" id="password" placeholder="password" name="Password" class="form-control form-group__input"/>
-					  </div>
-					  <button type="submit" class="btn btn-landing">Log in</button>
-					  <a href="#"><button type="button" class="btn btn-custom">Forgot Password</button></a>
-					  </form>
-
-					  <div class="alert alert-success show-hide-message alert-custom" role="alert"><p>{{main.successMsg}}</p></div>
-					  <div class="alert alert-danger show-hide-message alert-custom" role="alert"><p>{{main.errorMsg}}</p><a href="#"><p class="text-primary"> Resend activation link</p></a></div>
-
-					  <hr>
-
-			        <a class="btn btn-block btn-social btn-facebook center">
-							<span class="fa fa-facebook"></span>
-							Sign in with Facebook
-						</a>
-
-					</div>
-					</div>
-				</div>
-  		</div>
-  		<div class="col-md-3">
-  		</div>
-  </div>
-</div>
-</div>
+<app-login-form *ngIf="login"></app-login-form>
+<app-reg-form *ngIf="!login"></app-reg-form>
 
 <div class="container">
 
