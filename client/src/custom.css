@@ -1,0 +1,408 @@
+/*body****************************************************************************/
+
+body{
+  background-color: #F0F0F0;
+}
+
+/*jumbotron**********************************************************************/
+
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.container-fluid .jumbotron {
+  border-radius: 0px;
+  background-color: #205a5e;
+}
+
+.jumbotron h1 {
+  color: white;
+}
+
+.jumbotron .container .row .col-md-8 p {
+  color: white;
+}
+
+/*panel***************************************************************************/
+
+.panel {
+  border-width: 1px;
+  border-color: #D5D7D9;
+}
+
+.panel-landing {
+  border-width: 0px;
+}
+
+.panel .panel-heading {
+  background-color: #205a5e;
+  color: #12ea82;
+  border-color: #D5D7D9;
+  height: 40px;
+}
+
+.panel .panel-custom {
+  background-color: #12ea82;
+  color: black;
+  border-color: #12ea82;
+  height: 40px;
+}
+
+.panel .panel-heading h3 {
+  display: inline;
+}
+
+.panel .panel-body .table-responsive .table tr th {
+  border-top: 0px solid #ddd;
+}
+
+.panel .panel-body .table-responsive .table tr td i {
+  cursor: pointer;
+}
+
+.panel .panel-body .content {
+  max-width: 600px;
+  margin: 0px auto;
+}
+
+/*forms**********************************************************************/
+
+.form-group p {
+  font-size: 14px;
+}
+
+.form-group__input:focus {
+  border-color: #205a5e;
+}
+
+.form-group__input {
+  border-color: #205a5e;
+}
+
+
+/*table*********************************************************************/
+
+.table {
+  margin-bottom: 0px;
+}
+
+.table th:hover {
+  cursor: pointer;
+}
+
+.grey-header,
+.table th:hover {
+  color: #576366;
+}
+
+.blue {
+  color: #337AB7;
+  cursor: pointer;
+}
+
+.blue:hover {
+  text-decoration: underline;
+}
+
+/*navbar******************************************************************/
+
+.navbar {
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #205a5e;
+  color: #C8C9CC;
+}
+
+.navbar-inverse .navbar-nav li a {
+  color: #C8C9CC;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #12ea82;
+}
+
+.nav .desktop-only a, 
+.navbar-collapse .desktop-only,
+.navbar-collapse .desktop-only a {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav .desktop-only a, 
+  .navbar-collapse .desktop-only,
+  .navbar-collapse .desktop-only a {
+    display: block;
+  }
+}
+
+.nav .mobile-only a{
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .nav .mobile-only a{
+    display: none;
+  }
+}
+
+/*sidebar*****************************************************************/
+
+.sidebar {
+  background-color: #ffffff;
+  border: 1px solid #D5D7D9;
+}
+
+.sidebar ul li a {
+  color: #576366;
+}
+
+.sidebar ul li a:hover {
+  color: black;
+}
+
+.nav-sidebar hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: #D5D7D9;
+  background-color: #D5D7D9;
+  border: 0;
+  border-top: 1px solid #D5D7D9;
+}
+
+/*buttons*****************************************************************/
+
+.btn-block {
+  width: 200px;
+}
+
+.btn img {
+  margin-top: -3px;
+}
+
+.btn-custom {
+  /*border-width: 1px;
+  border-color: #12ea82;*/
+  background-color: #12ea82;
+  color: white;
+}
+
+.btn-custom:hover {
+  /*border-width: 1px;
+  border-color: #205a5e;*/
+  background-color: #10d576;
+  color: white;
+}
+
+.btn-landing {
+  border-width: 1px;
+  border-color: #205a5e;
+  background-color: #12ea82;
+  color: black;
+}
+
+.btn-landing:hover {
+  border-width: 1px;
+  border-color: #205a5e;
+  background-color: #10d576;
+  color: black;
+}
+
+/*alert box**************************************************************/
+
+.alert-custom {
+  margin: 20px auto;
+}
+
+.alert-custom p {
+  font-size: 14px;
+}
+
+/*typeahead**************************************************************/
+
+.dropdown {
+  position: absolute;
+  top: 35px;
+  left: 5px;
+  overflow-y: auto;
+  max-height: 200px;
+  min-width: 250px;
+  border: 1px solid #C5C5C5;
+  box-shadow: 0px 2px 2px #cccccc;
+  z-index: 10000;
+}
+
+.dropdown__list {
+  margin: 0;
+}
+
+.dropdown__list-item {
+  border-style: none;
+  cursor:pointer; 
+} 
+
+.dropdown__list-item:hover {
+  background-color:#f9f9f9; 
+} 
+
+/*avatar******************************************************************/
+
+.avatar {
+  display: inline-block;
+  /*width: 30px;
+  height: 30px;*/
+  padding: 10px 0;
+}
+
+.avatar__img {
+  width: 30px;
+  height: 30px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+}
+
+/*pagination**************************************************************/
+
+.pagination li a {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  .pagination li a {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+/*profile******************************************************************/
+
+.panel-body-profile {
+  padding: 0;
+}
+
+.user-background-pic img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  margin: 0;
+}
+
+.user-profile-pic {
+  position: relative;
+}
+
+.user-profile-pic img {
+  width: 200px;
+  height: 190px;
+  object-fit: cover;
+  margin-left: 30px;
+  margin-top: -50px;
+}
+
+.btn-upload-profile-pic {
+  position: absolute;
+  bottom: 35px;
+  left: 45px;
+  width: 190px;
+  border-radius: 0px;
+  color: white;
+  background-color: black;
+  opacity: 0.7;
+  border-style: none;
+}
+
+.btn-upload-bgr-pic {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  width: 190px;
+  border-radius: 0px;
+  color: white;
+  background-color: black;
+  opacity: 0.7;
+  border-style: none;
+}
+
+.btn-upload-profile-pic:hover {
+  border-radius: 0px;
+  color: white;
+  background-color: black;
+  opacity: 0.7;
+  border-style: none;
+}
+
+.btn-upload-bgr-pic:hover {
+  border-radius: 0px;
+  color: white;
+  background-color: black;
+  opacity: 0.7;
+  border-style: none;
+}
+
+.description {
+  margin-top: 1px;
+  margin-bottom: 5px;
+  width: 50%;
+}
+
+.fa-pencil {
+  cursor: pointer;
+}
+
+/*************************************************************************/
+
+
+hr {
+  margin-top: 21px;
+  margin-bottom: 30px;
+  color: #D5D7D9;
+  background-color: #D5D7D9;
+  border: 0;
+  border-top: 1px solid #D5D7D9;
+}
+
+#login {
+  display: none;
+}
+
+
+.filter {
+  margin-bottom: 20px;
+}
+
+.no-padding {
+  padding: 0 5px 0 5px;
+}
+
+.no-margin {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.h-no-top-margin {
+  margin-top: 10px;
+}
+
+
+.p-10 {
+  padding: 10px;
+}
+
+.no-border {
+  border-style: none;
+}
+
+.center {
+  display: table;
+  margin: auto;
+}
+
+.relative {
+  position: relative;
+}
+
+.uib-daypicker:focus {
+  outline: none;
+}
