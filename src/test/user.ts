@@ -26,7 +26,8 @@ describe("User", (): void => {
       // user object
       const user: IUser = {
         email: "test@user.com",
-        name: "Test User"
+        name: "Test User",
+        password: "123456"
       };
 
       // create user and return promise

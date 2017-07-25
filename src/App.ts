@@ -5,10 +5,11 @@ import * as logger from "morgan";
 import * as bodyParser from "body-parser";
 import errorHandler = require("errorhandler");
 import { config } from "./config/reader";
-import * as cors from 'cors';
+import * as cors from "cors";
 
 // import routers
 import TestRouter from "./routes/TestRouter";
+import AuthRouter from "./routes/AuthRouter";
 
 // import interfaces
 import { IUser } from "./interfaces/user";
@@ -41,7 +42,7 @@ class App {
   // Configure Express middleware.
   private middleware(): void {
     this.express.use(cors({
-      origin: 'http://localhost:4200'
+      origin: "http://localhost:4200"
     }));
     this.express.use(logger("dev"));
     this.express.use(bodyParser.json());
@@ -85,6 +86,7 @@ class App {
 
     // get REST endpoints
     this.express.use("/api/test", TestRouter);
+    this.express.use("/api/auth", AuthRouter);
   }
 
 }

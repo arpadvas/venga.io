@@ -7,8 +7,10 @@ const logger = require("morgan");
 const bodyParser = require("body-parser");
 const errorHandler = require("errorhandler");
 const reader_1 = require("./config/reader");
+const cors = require("cors");
 // import routers
 const TestRouter_1 = require("./routes/TestRouter");
+const AuthRouter_1 = require("./routes/AuthRouter");
 // import schemas
 const user_1 = require("./schemas/user");
 // Creates and configures an ExpressJS web server.
@@ -23,6 +25,9 @@ class App {
     }
     // Configure Express middleware.
     middleware() {
+        this.express.use(cors({
+            origin: "http://localhost:4200"
+        }));
         this.express.use(logger("dev"));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
@@ -61,6 +66,7 @@ class App {
         this.express.use("/", router);
         // get REST endpoints
         this.express.use("/api/test", TestRouter_1.default);
+        this.express.use("/api/auth", AuthRouter_1.default);
     }
 }
 exports.default = new App().express;
