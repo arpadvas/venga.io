@@ -1,7 +1,8 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { IUser } from "../interfaces/user";
-import { IUserModel } from "../models/user";
-import { userSchema } from "../schemas/user";
+import { User } from "../schemas/user";
+
+import App from "../App";
 
 export class AuthRouter {
   router: Router;
@@ -18,7 +19,17 @@ export class AuthRouter {
    * Register new user account.
    */
   public registerUser(req: Request, res: Response, next: NextFunction): void {
-    res.send("hello from auth router");
+    if (req.body.email && req.body.name && req.body.password) {
+        const user = new User({email: req.body.email, name: req.body.name, password: req.body.password});
+        user.save((err) => {
+            if (err) {
+                return next(err);
+            }
+            res.json({ success: true, message: "User has been saved.", user: user });
+        });
+    } else {
+            res.json({ succes: false, message: "Make sure name, email and password were provided." });
+    }
   }
 
 
