@@ -16,14 +16,14 @@
 		      </div>
 		      <div class="panel-body">
 		        <div class="content">
-		          <form name="regForm" novalidate>
+		          <form [formGroup]="form" (submit)="onRegisterSubmit()" novalidate>
 
 
 		              <!-- Name -->
 		              <div class="form-group">
-		                <div>
-		                  <input id="name" type="text" placeholder="Name" name="name" class="form-control form-group__input" required>
-		                  <p class="help-block">This field is required.</p>
+		                <div [ngClass]="{'has-error': (form.controls.name.errors && form.controls.name.dirty), 'has-success': !form.controls.name.errors}">
+		                  <input id="name" type="text" placeholder="Name" name="name" class="form-control form-group__input" formControlName="name">
+		                  <p class="help-block" *ngIf="form.controls.name.errors?.required && form.controls.name.dirty">This field is required.</p>
 		                  <p class="help-block">Please enter a valid name.</p>
 		                </div>
 		              </div>
@@ -31,9 +31,9 @@
 
 		              <!-- Email -->
 		              <div class="form-group">
-		                <div>
-		                  <input id="email" type="email" placeholder="Email address" name="email" class="form-control form-group__input" required>
-		                  <p class="help-block">This field is required.</p>
+		                <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty), 'has-success': !form.controls.email.errors}">
+		                  <input id="email" type="email" placeholder="Email address" name="email" class="form-control form-group__input" formControlName="email">
+		                  <p class="help-block" *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is required.</p>
 		                  <p class="help-block"></p>
 		                  <p class="help-block">Please enter a valid email address.</p>
 		                </div>
@@ -42,9 +42,9 @@
 
 		              <!-- Password -->
 		              <div class="form-group">
-		                <div>
-		                  <input id="pw" type="password" name="firstPassword" class="form-control form-group__input" placeholder="Password" required>
-		                  <p class="help-block">This field is required.</p>
+		                <div [ngClass]="{'has-error': (form.controls.password.errors && form.controls.password.dirty), 'has-success': !form.controls.password.errors}">
+		                  <input id="pw" type="password" name="password" class="form-control form-group__input" placeholder="Password" formControlName="password">
+		                  <p class="help-block" *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required.</p>
 		                  <p class="help-block">Please enter a valid password.</p>
 		                </div>
 		              </div>
@@ -53,14 +53,14 @@
 
 		              <!-- Confirm Password -->
 		              <div class="form-group">
-		                <div>
-		                  <input id="pw" type="password" name="confirmPassword" class="form-control form-group__input" placeholder="Confirm password" required>
-		                  <p class="help-block">This field is required.</p>
+		                <div [ngClass]="{'has-error': (form.controls.confirm.errors && form.controls.confirm.dirty), 'has-success': !form.controls.confirm.errors}">
+		                  <input id="pw" type="password" name="confirm" class="form-control form-group__input" placeholder="Confirm password" formControlName="confirm">
+		                  <p class="help-block" *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">This field is required.</p>
 		                  <p>Passwords do not match!</p>
 		                </div>
 		              </div>
 
-		              <button type="submit" class="btn btn-landing">Sign up</button>
+		              <button type="submit" class="btn btn-landing" [disabled]="!form.valid">Sign up</button>
 		            </form>
 
 			          <div class="alert alert-success show-hide-message alert-custom" role="alert"><p></p></div>
