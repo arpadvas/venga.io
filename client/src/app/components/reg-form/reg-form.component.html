@@ -24,7 +24,8 @@
 		                <div [ngClass]="{'has-error': (form.controls.name.errors && form.controls.name.dirty), 'has-success': !form.controls.name.errors}">
 		                  <input id="name" type="text" placeholder="Name" name="name" class="form-control form-group__input" formControlName="name">
 		                  <p class="help-block" *ngIf="form.controls.name.errors?.required && form.controls.name.dirty">This field is required.</p>
-		                  <p class="help-block">Please enter a valid name.</p>
+											<p class="help-block" *ngIf="(form.controls.name.errors?.minlength || form.controls.name.errors?.maxlength) && form.controls.name.dirty">Name must be between 3 and 40 characters.</p>
+		                  <p class="help-block" *ngIf="form.controls.name.errors?.validateName && form.controls.name.dirty">Name must be between 3 and 30, no special characters and numbers allowed, space must be between names!</p>
 		                </div>
 		              </div>
 
@@ -34,8 +35,9 @@
 		                <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty), 'has-success': !form.controls.email.errors}">
 		                  <input id="email" type="email" placeholder="Email address" name="email" class="form-control form-group__input" formControlName="email">
 		                  <p class="help-block" *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is required.</p>
+											<p class="help-block" *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">Email must be between 3 and 40 characters.</p>
 		                  <p class="help-block"></p>
-		                  <p class="help-block">Please enter a valid email address.</p>
+		                  <p class="help-block" *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">Please enter a valid email address.</p>
 		                </div>
 		              </div>
 
@@ -45,7 +47,8 @@
 		                <div [ngClass]="{'has-error': (form.controls.password.errors && form.controls.password.dirty), 'has-success': !form.controls.password.errors}">
 		                  <input id="pw" type="password" name="password" class="form-control form-group__input" placeholder="Password" formControlName="password">
 		                  <p class="help-block" *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required.</p>
-		                  <p class="help-block">Please enter a valid password.</p>
+											<p class="help-block" *ngIf="(form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength) && form.controls.password.dirty">Password must be between 6 and 20 characters.</p>
+		                  <p class="help-block" *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">Password must have at least one lower case, one upper case, one number, one special character, and must be between 6 and 20 characters!</p>
 		                </div>
 		              </div>
 
@@ -53,10 +56,10 @@
 
 		              <!-- Confirm Password -->
 		              <div class="form-group">
-		                <div [ngClass]="{'has-error': (form.controls.confirm.errors && form.controls.confirm.dirty), 'has-success': !form.controls.confirm.errors}">
+		                <div [ngClass]="{'has-error': (form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPasswords && form.controls.confirm.dirty), 'has-success': !form.controls.confirm.errors && form.errors?.matchingPasswords}">
 		                  <input id="pw" type="password" name="confirm" class="form-control form-group__input" placeholder="Confirm password" formControlName="confirm">
 		                  <p class="help-block" *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">This field is required.</p>
-		                  <p>Passwords do not match!</p>
+		                  <p class="help-block" *ngIf="form.errors?.matchingPasswords && form.controls.confirm.dirty">Passwords do not match!</p>
 		                </div>
 		              </div>
 
