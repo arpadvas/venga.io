@@ -11,14 +11,11 @@ const cors = require("cors");
 // import routers
 const TestRouter_1 = require("./routes/TestRouter");
 const AuthRouter_1 = require("./routes/AuthRouter");
-// import schemas
-const user_1 = require("./schemas/user");
 // Creates and configures an ExpressJS web server.
 class App {
     // Run configuration methods on the Express instance.
     constructor() {
         this.express = express();
-        this.model = Object();
         this.middleware();
         this.connectDB();
         this.routes();
@@ -44,8 +41,7 @@ class App {
     connectDB() {
         const MONGODB_CONNECTION = reader_1.config.database;
         mongoose.Promise = global.Promise;
-        // connect to mongoose
-        const connection = mongoose.createConnection(MONGODB_CONNECTION, (err) => {
+        mongoose.connect(MONGODB_CONNECTION, function (err) {
             if (err) {
                 console.log("There is error while connecting to MongoDB: " + err);
             }
@@ -53,8 +49,6 @@ class App {
                 console.log("Successfully connected to MongoDB!");
             }
         });
-        // create models
-        this.model.user = connection.model("User", user_1.userSchema);
     }
     // Configure API endpoints.
     routes() {

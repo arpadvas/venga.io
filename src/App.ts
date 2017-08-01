@@ -11,29 +11,15 @@ import * as cors from "cors";
 import TestRouter from "./routes/TestRouter";
 import AuthRouter from "./routes/AuthRouter";
 
-// import interfaces
-import { IUser } from "./interfaces/user";
-
-// import models
-import { IModel } from "./models/model";
-import { IUserModel } from "./models/user";
-
-// import schemas
-import { userSchema } from "./schemas/user";
-
 // Creates and configures an ExpressJS web server.
 class App {
 
   // ref to Express instance
   public express: express.Application;
 
-  // an instance of IModel
-  private model: IModel;
-
   // Run configuration methods on the Express instance.
   constructor() {
     this.express = express();
-    this.model = Object();
     this.middleware();
     this.connectDB();
     this.routes();
@@ -62,8 +48,7 @@ class App {
     const MONGODB_CONNECTION: string = config.database;
     mongoose.Promise = global.Promise;
 
-    // connect to mongoose
-    const connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION, (err: any): void => {
+    mongoose.connect(MONGODB_CONNECTION, function(err: any): void {
       if (err) {
         console.log("There is error while connecting to MongoDB: " + err);
       } else {
@@ -71,8 +56,6 @@ class App {
       }
     });
 
-    // create models
-    this.model.user = connection.model<IUserModel>("User", userSchema);
   }
 
   // Configure API endpoints.

@@ -1,7 +1,7 @@
 import * as mocha from "mocha";
 import { IUser } from "../interfaces/user";
-import { IUserModel } from "../models/user";
 import { userSchema } from "../schemas/user";
+import { IUserModel } from "../schemas/user";
 import { config } from "../config/reader";
 
 // import mongoose
