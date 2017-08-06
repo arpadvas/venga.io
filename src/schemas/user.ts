@@ -9,7 +9,7 @@ export interface IUserModel extends IUser, Document {
 
 export const userSchema: Schema = new Schema({
   createdAt: Date,
-  email: { type: String, lowercase: true, required: true },
+  email: { type: String, lowercase: true, unique: true, required: true },
   name: { type: String, required: true },
   password: { type: String, required: true }
 });

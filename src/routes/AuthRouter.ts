@@ -24,7 +24,7 @@ export class AuthRouter {
         if (userEntry) {
           res.json({ success: true, message: "User has been saved.", user: userEntry });
         } else {
-          return next(new Error("There was an error while saving user."));
+          res.json({ succes: false, message: "There was an error while saving user." });
         }
     } else {
             res.json({ succes: false, message: "Make sure name, email and password were provided." });
@@ -43,6 +43,22 @@ export class AuthRouter {
       }
   }
 
+  /**
+   * Check if email is already taken.
+   */
+  public async checkEmail(req: Request, res: Response, next: NextFunction): Promise<void> {
+      if (!req.params.email) {
+        res.json({ succes: false, message: "Email was not provided." });
+      } else {
+        const user = await User.findOne({ email: req.params.email });
+        if (user) {
+          res.json({ succes: false, message: "Email is already taken." });
+        } else {
+          res.json({ succes: true, message: "Email is available." });
+        }
+      }
+  }
+
 
   /**
    * Take each handler, and attach to one of the Express.Router's
@@ -51,6 +67,7 @@ export class AuthRouter {
   init(): void {
     this.router.post("/register", asyncWrap(this.registerUser));
     this.router.get("/users", asyncWrap(this.getAll));
+    this.router.get("/checkEmail/:email", asyncWrap(this.checkEmail));
   }
 
 }

@@ -10,6 +10,11 @@ import { AuthService } from '../../services/auth.service';
 export class RegFormComponent implements OnInit {
 
   form: FormGroup;
+  message: string;
+  messageClass: string;
+  processing: boolean = false;
+  emalValid: boolean;
+  emailMessage: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -79,8 +84,37 @@ export class RegFormComponent implements OnInit {
     }
   }
 
+  disableForm() {
+    this.form.controls['name'].disable();
+    this.form.controls['email'].disable();
+    this.form.controls['password'].disable();
+    this.form.controls['confirm'].disable();
+  }
+
+  enableForm() {
+    this.form.controls['name'].enable();
+    this.form.controls['email'].enable();
+    this.form.controls['password'].enable();
+    this.form.controls['confirm'].enable();
+  }
+
+  checkEmail() {
+    const email = this.form.get('email').value;
+    this.authService.checkEmail(email).subscribe(data => {
+      if(data.success) {
+        this.emalValid = true;
+        this.emailMessage = data.message;
+      } else {
+        this.emalValid = false;
+        this.emailMessage = data.message;
+      }
+    });
+  }
+
   onRegisterSubmit() {
     
+    this.processing = true;
+    this.disableForm();
     const user = {
       email: this.form.get('email').value,
       name: this.form.get('name').value,
@@ -89,6 +123,15 @@ export class RegFormComponent implements OnInit {
 
     this.authService.registerUser(user).subscribe(data => {
       console.log(data);
+      if (data.success) {
+        this.messageClass = 'alert alert-success alert-custom';
+        this.message = data.message;
+      } else {
+        this.messageClass = 'alert alert-danger alert-custom';
+        this.message = data.message;
+        this.processing = false;
+        this.enableForm();
+      }
     });
 
   }

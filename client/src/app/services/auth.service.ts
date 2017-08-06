@@ -15,4 +15,8 @@ export class AuthService {
     return this.http.post(`${this.domain}/api/auth/register`, user).map(res => res.json());
   }
 
+  checkEmail(email) {
+    return this.http.get(`${this.domain}/api/auth/checkEmail/${email}`).map(res => res.json());
+  }
+
 }

@@ -32,11 +32,11 @@
 
 		              <!-- Email -->
 		              <div class="form-group">
-		                <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty), 'has-success': !form.controls.email.errors}">
-		                  <input id="email" type="email" placeholder="Email address" name="email" class="form-control form-group__input" formControlName="email">
+		                <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty) || (!emailValid && form.controls.email.dirty), 'has-success': !form.controls.email.errors && emailValid}">
+		                  <input id="email" type="email" placeholder="Email address" name="email" class="form-control form-group__input" formControlName="email" (blur)="checkEmail()">
 		                  <p class="help-block" *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is required.</p>
 											<p class="help-block" *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">Email must be between 3 and 40 characters.</p>
-		                  <p class="help-block"></p>
+		                  <p class="help-block" *ngIf="emailMessage">{{emailMessage}}</p>
 		                  <p class="help-block" *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">Please enter a valid email address.</p>
 		                </div>
 		              </div>
@@ -63,11 +63,14 @@
 		                </div>
 		              </div>
 
-		              <button type="submit" class="btn btn-landing" [disabled]="!form.valid">Sign up</button>
+		              <button type="submit" class="btn btn-landing" [disabled]="!form.valid || processing || !emailValid">Sign up</button>
 		            </form>
 
-			          <div class="alert alert-success show-hide-message alert-custom" role="alert"><p></p></div>
-			          <div class="alert alert-danger show-hide-message alert-custom" role="alert"><p></p></div>
+			          <div class="show-hide-message" role="alert">
+									<div [ngClass]="messageClass">
+										<p>{{message}}</p>
+									</div>
+								</div>
 
 		            <hr>
 
