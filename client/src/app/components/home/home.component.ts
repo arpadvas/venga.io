@@ -8,12 +8,18 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  login: boolean = false;
+  loginState: boolean = false;
 
   constructor(
     private authService: AuthService
   ) {
-    this.authService.stateUpdated.subscribe((login: boolean) => this.login = login);
+    this.authService.stateUpdated.subscribe((login: boolean) => {
+      if (login) {
+        this.loginState = true;
+      } else {
+        this.loginState = false;
+      }
+    });
   }
 
   ngOnInit() {
