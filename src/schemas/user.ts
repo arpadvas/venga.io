@@ -7,11 +7,119 @@ export interface IUserModel extends IUser, Document {
 
 }
 
+/**
+ * Email validators.
+ */
+const emailLengthChecker = (email) => {
+  if (!email) {
+    return false;
+  } else {
+    if (email.length < 3 || email.length > 40) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+};
+
+const validEmailChecker = (email) => {
+  if (!email) {
+    return false;
+  } else {
+    const regExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    return regExp.test(email);
+  }
+};
+
+const emailValidators = [
+  {
+  validator: emailLengthChecker,
+  message: "Email must be between 3 and 40 characters!"
+},
+{
+  validator: validEmailChecker,
+  message: "Must be a valid email!"
+  }
+];
+
+/**
+ * Name validators.
+ */
+const nameLengthChecker = (name) => {
+  if (!name) {
+    return false;
+  } else {
+    if (name.length < 3 || name.length > 40) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+};
+
+const validNameChecker = (name) => {
+  if (!name) {
+    return false;
+  } else {
+    const regExp = new RegExp(/^(([A-Za-z\u00C0-\u017F])+[ ]+([A-Za-z\u00C0-\u017F])+)+$/);
+    return regExp.test(name);
+  }
+};
+
+const nameValidators = [
+  {
+  validator: nameLengthChecker,
+  message: "Name must be between 3 and 40 characters!"
+},
+{
+  validator: validNameChecker,
+  message: "Name must not contain numbers and special characters but must have a space between first and last name!"
+  }
+];
+
+/**
+ * Password validators.
+ */
+const passwordLengthChecker = (password) => {
+  if (!password) {
+    return false;
+  } else {
+    if (password.length < 6 || password.length > 20) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+};
+
+const validPasswordChecker = (password) => {
+  if (!password) {
+    return false;
+  } else {
+    const regExp = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/);
+    return regExp.test(password);
+  }
+};
+
+const passwordValidators = [
+  {
+  validator: passwordLengthChecker,
+  message: "Password must be between 6 and 20 characters!"
+},
+{
+  validator: validPasswordChecker,
+  message: "Password must contain at least one number, one lower case and one upper case character!"
+  }
+];
+
+/**
+ * Creating user schema.
+ */
 export const userSchema: Schema = new Schema({
   createdAt: Date,
-  email: { type: String, lowercase: true, unique: true, required: true },
-  name: { type: String, required: true },
-  password: { type: String, required: true }
+  email: { type: String, lowercase: true, unique: true, required: true, validate: emailValidators },
+  name: { type: String, required: true, validate: nameValidators },
+  password: { type: String, required: true, validate: passwordValidators }
 });
 
 userSchema.pre("save", function(next: NextFunction): void {

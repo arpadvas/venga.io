@@ -25,7 +25,7 @@
 		                  <input id="name" type="text" placeholder="Name" name="name" class="form-control form-group__input" formControlName="name">
 		                  <p class="help-block" *ngIf="form.controls.name.errors?.required && form.controls.name.dirty">This field is required.</p>
 											<p class="help-block" *ngIf="(form.controls.name.errors?.minlength || form.controls.name.errors?.maxlength) && form.controls.name.dirty">Name must be between 3 and 40 characters.</p>
-		                  <p class="help-block" *ngIf="form.controls.name.errors?.validateName && form.controls.name.dirty">Name must be between 3 and 30, no special characters and numbers allowed, space must be between names!</p>
+		                  <p class="help-block" *ngIf="form.controls.name.errors?.validateName && form.controls.name.dirty">Name must not contain numbers and special characters but must have a space between first and last name!</p>
 		                </div>
 		              </div>
 
@@ -48,7 +48,7 @@
 		                  <input id="pw" type="password" name="password" class="form-control form-group__input" placeholder="Password" formControlName="password">
 		                  <p class="help-block" *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required.</p>
 											<p class="help-block" *ngIf="(form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength) && form.controls.password.dirty">Password must be between 6 and 20 characters.</p>
-		                  <p class="help-block" *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">Password must have at least one lower case, one upper case, one number, one special character, and must be between 6 and 20 characters!</p>
+		                  <p class="help-block" *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">Password must contain at least one number, one lower case and one upper case character!</p>
 		                </div>
 		              </div>
 

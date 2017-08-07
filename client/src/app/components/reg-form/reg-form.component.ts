@@ -13,7 +13,7 @@ export class RegFormComponent implements OnInit {
   message: string;
   messageClass: string;
   processing: boolean = false;
-  emalValid: boolean;
+  emailValid: boolean;
   emailMessage: string;
 
   constructor(
@@ -57,7 +57,7 @@ export class RegFormComponent implements OnInit {
   }
 
   validateName(controls) {
-    const regExp = new RegExp(/^(([A-Za-z\u00C0-\u017F]{3,40})+[ ]+([A-Za-z\u00C0-\u017F]{3,40})+)+$/);
+    const regExp = new RegExp(/^(([A-Za-z\u00C0-\u017F])+[ ]+([A-Za-z\u00C0-\u017F])+)+$/);
     if (regExp.test(controls.value)) {
       return null;
     } else {
@@ -102,10 +102,10 @@ export class RegFormComponent implements OnInit {
     const email = this.form.get('email').value;
     this.authService.checkEmail(email).subscribe(data => {
       if(data.success) {
-        this.emalValid = true;
+        this.emailValid = true;
         this.emailMessage = data.message;
       } else {
-        this.emalValid = false;
+        this.emailValid = false;
         this.emailMessage = data.message;
       }
     });

@@ -23,11 +23,9 @@ export class AuthRouter {
         const userEntry = await user.save();
         if (userEntry) {
           res.json({ success: true, message: "User has been saved.", user: userEntry });
-        } else {
-          res.json({ succes: false, message: "There was an error while saving user." });
         }
     } else {
-            res.json({ succes: false, message: "Make sure name, email and password were provided." });
+            res.json({ success: false, message: "Make sure name, email and password were provided." });
     }
   }
 
@@ -48,13 +46,13 @@ export class AuthRouter {
    */
   public async checkEmail(req: Request, res: Response, next: NextFunction): Promise<void> {
       if (!req.params.email) {
-        res.json({ succes: false, message: "Email was not provided." });
+        res.json({ success: false, message: "Email was not provided." });
       } else {
         const user = await User.findOne({ email: req.params.email });
         if (user) {
-          res.json({ succes: false, message: "Email is already taken." });
+          res.json({ success: false, message: "Email is already taken." });
         } else {
-          res.json({ succes: true, message: "Email is available." });
+          res.json({ success: true, message: "Email is available." });
         }
       }
   }
