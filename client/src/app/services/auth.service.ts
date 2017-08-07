@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 export class AuthService {
 
   domain = 'http://localhost:3000';
+  stateUpdated = new EventEmitter<boolean>();
 
   constructor(
     private http: Http
