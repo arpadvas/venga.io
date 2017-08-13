@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  loginState: boolean = false;
+  loginState: boolean = true;
 
   constructor(
     private authService: AuthService

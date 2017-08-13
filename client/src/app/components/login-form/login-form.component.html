@@ -10,19 +10,39 @@
 				</div>
 				<div class="panel-body">
 					<div class="content">
-					  <form>
-					  <div class="form-group">
-					    <input type="text" id="email" placeholder="Email address" name="email" class="form-control form-group__input"/>
-					  </div>
-					  <div class="form-group">
-					    <input type="password" id="password" placeholder="password" name="Password" class="form-control form-group__input"/>
-					  </div>
-					  <button type="submit" class="btn btn-landing">Log in</button>
-					  <a href="#"><button type="button" class="btn btn-custom">Forgot Password</button></a>
+
+						<!--login form-->
+					  <form [formGroup]="form" (submit)="onLoginSubmit()">
+
+							<!--email input-->
+							<div class="form-group">
+								<div [ngClass]="{'has-error': form.controls.email.errors && form.controls.email.dirty, 'has-success': form.controls.email.valid && form.controls.email.dirty }">
+									<input type="text" id="email" placeholder="Email address" name="email" formControlName="email" class="form-control form-group__input"/>
+									<p class="help-block" *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is required.</p>
+								</div>
+							</div>
+
+							<!--password input-->
+							<div class="form-group">
+								<div [ngClass]="{'has-error': form.controls.password.errors && form.controls.password.dirty, 'has-success': form.controls.password.valid && form.controls.password.dirty }">
+									<input type="password" id="password" placeholder="password" name="password" formControlName="password" class="form-control form-group__input"/>
+									<p class="help-block" *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required.</p>
+								</div>
+							</div>
+
+							<button [disabled]="!form.valid || processing" type="submit" class="btn btn-landing">Log in</button>
+							<a href="#"><button type="button" class="btn btn-custom">Forgot Password</button></a>
 					  </form>
 
-					  <div class="alert alert-success show-hide-message alert-custom" role="alert"><p></p></div>
-					  <div class="alert alert-danger show-hide-message alert-custom" role="alert"><p></p><a href="#"><p class="text-primary"> Resend activation link</p></a></div>
+						<!--spinner-->
+						<app-spinner [ngClass]="{ 'hide': !processing }"></app-spinner>
+
+						<!--message-->
+					  <div class="show-hide-message" role="alert">
+							<div [ngClass]="messageClass">
+								<p>{{message}}</p>
+							</div>
+						</div>
 
 					  <hr>
 

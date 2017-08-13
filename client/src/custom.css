@@ -406,3 +406,7 @@ hr {
 .uib-daypicker:focus {
   outline: none;
 }
+
+.hide {
+  display: none !important;
+}

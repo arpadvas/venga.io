@@ -1,6 +1,10 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { User, IUserModel } from "../schemas/user";
 import { asyncWrap } from "../helpers/async";
+import { authenticateUser } from "../helpers/auth";
+import * as jwt from "jsonwebtoken";
+import { config } from "../config/reader";
+import requiresLogin from "../middlewares/requiresLogin";
 
 
 export class AuthRouter {
@@ -22,10 +26,33 @@ export class AuthRouter {
         const user = new User({email: req.body.email, name: req.body.name, password: req.body.password});
         const userEntry = await user.save();
         if (userEntry) {
-          res.json({ success: true, message: "User has been saved.", user: userEntry });
-        }
+          const token = await jwt.sign({userId: userEntry._id}, config.token_secret, {expiresIn: config.token_expire});
+          res.json({ success: true, message: "User has been saved.", token: token, user: { email: userEntry.email } });
+      }
     } else {
             res.json({ success: false, message: "Make sure name, email and password were provided." });
+    }
+  }
+
+  /**
+   * Login user.
+   */
+  public async loginUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+    if (req.body.email && req.body.password) {
+        const user: IUserModel = await User.findOne({ email: req.body.email });
+        if (user) {
+          const isAuthenticated = await authenticateUser(req.body.password, user.password);
+          if (isAuthenticated) {
+            const token = await jwt.sign({userId: user._id}, config.token_secret, {expiresIn: config.token_expire});
+            res.json({ success: true, message: "Successfully logged in.", token: token, user: { email: user.email } });
+          } else {
+            res.json({ success: false, message: "Wrong password has been provided!" });
+          }
+        } else {
+          res.json({ success: false, message: "There is no user registered with the email provided!" });
+        }
+    } else {
+            res.json({ success: false, message: "Make sure email and password were provided." });
     }
   }
 
@@ -57,6 +84,22 @@ export class AuthRouter {
       }
   }
 
+  /**
+   * Get actual user profile.
+   */
+  public async getProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
+      if ((<any>req)["decoded"]) {
+        const user = await User.findOne({ _id: (<any>req)["decoded"].userId }).select("name email");
+        if (user) {
+          res.json({ success: true, user: user });
+        } else {
+          res.json({ success: false, message: "User is not found!" });
+        }
+      } else {
+        res.json({ success: false, message: "Token has not been provided!" });
+      }
+  }
+
 
   /**
    * Take each handler, and attach to one of the Express.Router's
@@ -64,8 +107,10 @@ export class AuthRouter {
    */
   init(): void {
     this.router.post("/register", asyncWrap(this.registerUser));
+    this.router.post("/login", asyncWrap(this.loginUser));
     this.router.get("/users", asyncWrap(this.getAll));
     this.router.get("/checkEmail/:email", asyncWrap(this.checkEmail));
+    this.router.get("/profile", requiresLogin, asyncWrap(this.getProfile));
   }
 
 }

@@ -66,6 +66,9 @@
 		              <button type="submit" class="btn btn-landing" [disabled]="!form.valid || processing || !emailValid">Sign up</button>
 		            </form>
 
+								<!--spinner-->
+								<app-spinner [ngClass]="{ 'hide': !processing }"></app-spinner>
+
 			          <div class="show-hide-message" role="alert">
 									<div [ngClass]="messageClass">
 										<p>{{message}}</p>

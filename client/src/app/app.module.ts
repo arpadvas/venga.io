@@ -12,6 +12,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RegFormComponent } from './components/reg-form/reg-form.component';
 import { AuthService } from './services/auth.service';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AuthGuard } from './guards/auth.guard';
+import { NotAuthGuard } from './guards/notAuth.guard';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,9 @@ import { AuthService } from './services/auth.service';
     TimelineComponent,
     SidebarComponent,
     LoginFormComponent,
-    RegFormComponent
+    RegFormComponent,
+    SpinnerComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +36,7 @@ import { AuthService } from './services/auth.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

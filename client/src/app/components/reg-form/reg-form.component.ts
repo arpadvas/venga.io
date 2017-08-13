@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reg-form',
@@ -18,7 +19,8 @@ export class RegFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.createForm();
    }
@@ -126,6 +128,11 @@ export class RegFormComponent implements OnInit {
       if (data.success) {
         this.messageClass = 'alert alert-success alert-custom';
         this.message = data.message;
+        this.processing = false;
+        this.authService.storeUserData(data.token, data.user);
+        setTimeout(() => {
+         this.router.navigate(['/timeline']);
+        }, 2000);
       } else {
         this.messageClass = 'alert alert-danger alert-custom';
         this.message = data.message;
