@@ -4,7 +4,7 @@ import mongoose = require("mongoose");
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
 import errorHandler = require("errorhandler");
-import { config } from "./config/reader";
+import { config } from "./config/index";
 import * as cors from "cors";
 
 // import routers

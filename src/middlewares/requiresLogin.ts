@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
-import { config } from "../config/reader";
+import { config } from "../config/index";
 
 export default async function requiresLogin(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     const token: any = req.headers["authorization"];
