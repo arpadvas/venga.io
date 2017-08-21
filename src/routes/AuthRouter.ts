@@ -3,7 +3,7 @@ import { User, IUserModel } from "../schemas/user";
 import { asyncWrap } from "../helpers/async";
 import { authenticateUser } from "../helpers/auth";
 import * as jwt from "jsonwebtoken";
-import { config } from "../config/reader";
+import { config } from "../config/index";
 import requiresLogin from "../middlewares/requiresLogin";
 
 
