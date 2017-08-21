@@ -16,6 +16,7 @@ export class LoginFormComponent implements OnInit {
   messageClass: string;
   processing: boolean = false;
   previousUrl;
+  userDetailsForNavbar: any = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,6 +68,10 @@ export class LoginFormComponent implements OnInit {
           } else {
             this.router.navigate(['/timeline']);
           }
+          this.authService.getUserDetailForNavbar().subscribe(profile => {
+            this.userDetailsForNavbar.name = profile.user.name;
+            this.authService.userDetailsForNavbarUpdated.emit(this.userDetailsForNavbar);
+          });
         }, 2000);
       }
     });

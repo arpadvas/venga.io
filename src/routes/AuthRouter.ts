@@ -100,6 +100,22 @@ export class AuthRouter {
       }
   }
 
+  /**
+   * Get actual user profile.
+   */
+  public async getUserDetailsForNavbar(req: Request, res: Response, next: NextFunction): Promise<void> {
+      if ((<any>req)["decoded"]) {
+        const user = await User.findOne({ _id: (<any>req)["decoded"].userId }).select("name");
+        if (user) {
+          res.json({ success: true, user: user });
+        } else {
+          res.json({ success: false, message: "User is not found!" });
+        }
+      } else {
+        res.json({ success: false, message: "Token has not been provided!" });
+      }
+  }
+
 
   /**
    * Take each handler, and attach to one of the Express.Router's
@@ -111,6 +127,7 @@ export class AuthRouter {
     this.router.get("/users", asyncWrap(this.getAll));
     this.router.get("/checkEmail/:email", asyncWrap(this.checkEmail));
     this.router.get("/profile", requiresLogin, asyncWrap(this.getProfile));
+    this.router.get("/userDetailsForNavbar", requiresLogin, asyncWrap(this.getUserDetailsForNavbar));
   }
 
 }

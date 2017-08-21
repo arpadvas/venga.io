@@ -10,11 +10,17 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   login: boolean;
+  userDetailsForNavbar: any = {};
 
   constructor(
     private authService: AuthService,
     private router: Router
-    ) { }
+    ) {
+      // update user details if they are changed
+      this.authService.userDetailsForNavbarUpdated.subscribe((userDetailsForNavbar) => {
+        this.userDetailsForNavbar.name = userDetailsForNavbar.name;
+      });
+    }
 
   onLoginClick() {
     this.login = true;
@@ -34,6 +40,12 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    // update navbar with user details when if user is logged in
+    if (this.authService.loggedIn()) {
+      this.authService.getUserDetailForNavbar().subscribe(profile => {
+            this.userDetailsForNavbar.name = profile.user.name;
+          });
+    }
   }
 
 }

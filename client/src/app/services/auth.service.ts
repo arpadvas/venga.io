@@ -8,6 +8,7 @@ export class AuthService {
 
   domain = 'http://localhost:3000';
   stateUpdated = new EventEmitter<boolean>();
+  userDetailsForNavbarUpdated = new EventEmitter<{}>();
   authToken;
   user;
   options;
@@ -58,6 +59,11 @@ export class AuthService {
   getProfile() {
     this.createAuthenticationHeaders();
     return this.http.get(`${this.domain}/api/auth/profile`, this.options).map(res => res.json());
+  }
+
+  getUserDetailForNavbar() {
+    this.createAuthenticationHeaders();
+    return this.http.get(`${this.domain}/api/auth/userDetailsForNavbar`, this.options).map(res => res.json());
   }
 
   loggedIn() {
