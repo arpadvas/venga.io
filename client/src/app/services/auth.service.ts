@@ -1,8 +1,11 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
+import { Observable } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class AuthService {
@@ -18,24 +21,41 @@ export class AuthService {
     private http: Http
   ) { }
 
-  registerUser(user) {
-    return this.http.post(`${this.domain}/api/auth/register`, user).map(res => res.json());
+  // register user
+  registerUser(user): Observable<any> {
+    return this.http.post(`${this.domain}/api/auth/register`, user)
+      .map(res => res.json())
+        .catch((res) => {
+          return this.handleResponseError(res);
+        });
   }
 
+  // check if email is already taken
   checkEmail(email) {
-    return this.http.get(`${this.domain}/api/auth/checkEmail/${email}`).map(res => res.json());
+    return this.http.get(`${this.domain}/api/auth/checkEmail/${email}`)
+      .map(res => res.json())
+        .catch((res) => {
+          return this.handleResponseError(res);
+        });
   }
 
+  // login user
   login(user) {
-    return this.http.post(`${this.domain}/api/auth/login`, user).map(res => res.json());
+    return this.http.post(`${this.domain}/api/auth/login`, user)
+      .map(res => res.json())
+        .catch((res) => {
+          return this.handleResponseError(res);
+        });
   }
 
+  // logout user
   logout() {
     this.authToken = null;
     this.user = null;
     localStorage.clear();
   }
 
+  // store user data in storage
   storeUserData(token, user) {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -43,6 +63,7 @@ export class AuthService {
     this.user = user;
   }
 
+  // create header with token
   createAuthenticationHeaders() {
     this.loadToken();
     this.options = new RequestOptions({
@@ -53,22 +74,39 @@ export class AuthService {
     });
   }
 
+  // load token from storage
   loadToken() {
     this.authToken = localStorage.getItem('token');
   }
 
+  // get user profile
   getProfile() {
     this.createAuthenticationHeaders();
-    return this.http.get(`${this.domain}/api/auth/profile`, this.options).map(res => res.json());
+    return this.http.get(`${this.domain}/api/auth/profile`, this.options)
+      .map(res => res.json())
+        .catch((res) => {
+          return this.handleResponseError(res);
+        });
   }
 
+  // get user details for navbar
   getUserDetailForNavbar() {
     this.createAuthenticationHeaders();
-    return this.http.get(`${this.domain}/api/auth/userDetailsForNavbar`, this.options).map(res => res.json());
+    return this.http.get(`${this.domain}/api/auth/userDetailsForNavbar`, this.options)
+      .map(res => res.json())
+        .catch((res) => {
+          return this.handleResponseError(res);
+        });
   }
 
+  // check if user is logged in
   loggedIn() {
     return tokenNotExpired();
+  }
+
+  // handle errors
+  private handleResponseError(res): Observable<any> {
+    return Observable.throw(res);
   }
 
 }
