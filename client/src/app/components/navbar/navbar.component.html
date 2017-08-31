@@ -1,32 +1,30 @@
-    <!-- top nav bar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" routerLink="/home">Venga Project</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li *ngIf="authService.loggedIn()" class="desktop-only"><a routerLink="/profile">{{userDetailsForNavbar.name}}</a></li>
-            <li *ngIf="!authService.loggedIn()"><a href="#" (click)="onRegisterClick()" >Register</a></li>
-            <li *ngIf="!authService.loggedIn()"><a href="#" (click)="onLoginClick()">Log In</a></li>
-            <li *ngIf="authService.loggedIn()" class="mobile-only"><a href="#">My profile</a></li>
-            <li *ngIf="authService.loggedIn()"><a href="#">My ascents</a></li>
-            <li *ngIf="authService.loggedIn()" class="mobile-only"><a href="#">Search ascents</a></li>
-            <li *ngIf="authService.loggedIn()" class="mobile-only"><a href="#">Search climbers</a></li>
-            <li *ngIf="authService.loggedIn()"><a href="#" (click)="onLogoutClick()">Logout</a></li>
-          </ul>
-          <div *ngIf="authService.loggedIn()" class="avatar navbar-right desktop-only">
-            <a routerLink="/profile">
-              <img class="avatar__img">
-            </a>
-          </div>
-        </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/home">Venga Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="authService.loggedIn() && userDetailsForNavbar.name" class="desktop-only"><a routerLink="/profile">{{userDetailsForNavbar.name}}</a></li>
+        <li *ngIf="!authService.loggedIn()"><a href="#" (click)="onRegisterClick()" >Register</a></li>
+        <li *ngIf="!authService.loggedIn()"><a href="#" (click)="onLoginClick()">Log In</a></li>
+        <li *ngIf="authService.loggedIn()" class="mobile-only"><a href="#">My profile</a></li>
+        <li *ngIf="authService.loggedIn()"><a href="#">My ascents</a></li>
+        <li *ngIf="authService.loggedIn()" class="mobile-only"><a href="#">Search ascents</a></li>
+        <li *ngIf="authService.loggedIn()" class="mobile-only"><a href="#">Search climbers</a></li>
+        <li *ngIf="authService.loggedIn()"><a href="#" (click)="onLogoutClick()">Logout</a></li>
+      </ul>
+      <div *ngIf="authService.loggedIn() && userDetailsForNavbar.name" class="avatar navbar-right desktop-only">
+        <a routerLink="/profile">
+          <img class="avatar__img">
+        </a>
       </div>
-    </nav>
-    <!-- end of top nav bar -->
+    </div>
+  </div>
+</nav>

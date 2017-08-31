@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import User from '../../models/user.model';
 
 @Component({
   selector: 'app-reg-form',
@@ -16,6 +17,7 @@ export class RegFormComponent implements OnInit {
   processing: boolean = false;
   emailValid: boolean;
   emailMessage: string;
+  userDetailsForNavbar: any = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -117,11 +119,8 @@ export class RegFormComponent implements OnInit {
     
     this.processing = true;
     this.disableForm();
-    const user = {
-      email: this.form.get('email').value,
-      name: this.form.get('name').value,
-      password: this.form.get('password').value
-    }
+
+    const user = new User(this.form.get('email').value, this.form.get('name').value, this.form.get('password').value);
 
     this.authService.registerUser(user).subscribe(data => {
       console.log(data);
@@ -132,6 +131,8 @@ export class RegFormComponent implements OnInit {
         this.authService.storeUserData(data.token, data.user);
         setTimeout(() => {
          this.router.navigate(['/timeline']);
+         this.userDetailsForNavbar.name = user.name;
+         this.authService.userDetailsForNavbarUpdated.emit(this.userDetailsForNavbar);
         }, 2000);
       } else {
         this.messageClass = 'alert alert-danger alert-custom';
