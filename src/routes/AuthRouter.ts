@@ -57,6 +57,24 @@ export class AuthRouter {
   }
 
   /**
+   * Renew auth token.
+   */
+  public async renewAuthToken(req: Request, res: Response, next: NextFunction): Promise<void> {
+    console.log(req.body);
+    if (req.body.email) {
+        const user: IUserModel = await User.findOne({ email: req.body.email });
+        if (user) {
+          const token = await jwt.sign({userId: user._id}, config.token_secret, {expiresIn: config.token_expire});
+          res.json({ success: true, message: "Token has successfully been renewed.", token: token, user: { email: user.email } });
+        } else {
+          res.json({ success: false, message: "There is no user registered with the email provided!" });
+        }
+    } else {
+            res.json({ success: false, message: "User is not logged in." });
+    }
+  }
+
+  /**
    * GET all Users.
    */
   public async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -124,6 +142,7 @@ export class AuthRouter {
   init(): void {
     this.router.post("/register", asyncWrap(this.registerUser));
     this.router.post("/login", asyncWrap(this.loginUser));
+    this.router.post("/renewAuthToken", asyncWrap(this.renewAuthToken));
     this.router.get("/users", asyncWrap(this.getAll));
     this.router.get("/checkEmail/:email", asyncWrap(this.checkEmail));
     this.router.get("/profile", requiresLogin, asyncWrap(this.getProfile));

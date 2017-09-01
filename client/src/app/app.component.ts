@@ -8,14 +8,19 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'Venga.io';
+  user: {email: string};
 
   constructor (
     private authService: AuthService
   ) {
+    // renew token if user is logged in
     if (this.authService.loggedIn()) {
-      console.log('logged in');
-    } else {
-      console.log('logged out');
+      this.user = JSON.parse(localStorage.getItem('user'));
+      if (this.user) {
+        this.authService.renewAuthToken(this.user).subscribe(data => {
+          console.log(data.message);
+        });
+      }
     }
   }
 

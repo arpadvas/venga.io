@@ -48,6 +48,15 @@ export class AuthService {
         });
   }
 
+  // renew auth token
+  renewAuthToken(user) {
+    return this.http.post(`${this.domain}/api/auth/renewAuthToken`, user)
+      .map(res => res.json())
+        .catch((res) => {
+          return this.handleResponseError(res);
+        });
+  }
+
   // logout user
   logout() {
     this.authToken = null;
