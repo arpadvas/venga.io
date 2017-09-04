@@ -7,6 +7,7 @@ import { transporter } from "../helpers/mailer";
 import * as jwt from "jsonwebtoken";
 import { config } from "../config/index";
 import requiresLogin from "../middlewares/requiresLogin";
+import { SentMessageInfo } from "nodemailer";
 
 
 export class AuthRouter {
@@ -37,7 +38,7 @@ export class AuthRouter {
               subject: "Activation code",
               text: `Hello ${req.body.name}, Please find your activation code enclosed: ${activateToken}.`
           };
-          transporter.sendMail(mailOptions, function(err: any, res: any): void {
+          transporter.sendMail(mailOptions, function(err: Error, res: SentMessageInfo): void {
             if (err) {
                 console.log(err);
             } else {

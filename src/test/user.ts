@@ -26,9 +26,9 @@ describe("User", (): void => {
     it("should create a new User", () => {
       // user object
       const user: IUser = {
-        email: "test@user.com",
+        email: "test1@user.com",
         name: "Test User",
-        password: "123456",
+        password: "Avasss1!",
         activateToken: generateActivateToken()
       };
 
@@ -37,7 +37,8 @@ describe("User", (): void => {
         result._id.should.exist;
         result.email.should.equal(user.email);
         result.name.should.equal(user.name);
-
+        result.password.should.exist;
+        result.activateToken.should.exist;
       });
     });
   });
