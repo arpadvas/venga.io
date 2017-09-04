@@ -16,6 +16,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { RegFormComponent } from './components/reg-form/reg-form.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ActivateComponent } from './components/activate/activate.component';
 
 // import services
 import { AuthService } from './services/auth.service';
@@ -32,7 +33,8 @@ import { NotAuthGuard } from './guards/notAuth.guard';
     LoginFormComponent,
     RegFormComponent,
     SpinnerComponent,
-    ProfileComponent
+    ProfileComponent,
+    ActivateComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ActivateComponent } from './components/activate/activate.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
 
@@ -13,6 +14,10 @@ const appRoutes: Routes = [
   },
   { path: 'timeline',
     component: TimelineComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'activate',
+    component: ActivateComponent,
     canActivate: [AuthGuard]
   },
   { path: 'profile',
