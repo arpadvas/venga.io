@@ -3,6 +3,7 @@ import { IUser } from "../interfaces/user";
 import { userSchema } from "../schemas/user";
 import { IUserModel } from "../schemas/user";
 import { config } from "../config/index";
+import { generateActivateToken } from "../helpers/random";
 
 // import mongoose
 import mongoose = require("mongoose");
@@ -12,7 +13,7 @@ mongoose.Promise = global.Promise;
 
 // connect to mongoose and create model
 const MONGODB_CONNECTION: string = config.database;
-const connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION);
+const connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION, { useMongoClient: true });
 const User: mongoose.Model<IUserModel> = connection.model<IUserModel>("User", userSchema);
 
 // require chai and use should() assertions
@@ -27,7 +28,8 @@ describe("User", (): void => {
       const user: IUser = {
         email: "test@user.com",
         name: "Test User",
-        password: "123456"
+        password: "123456",
+        activateToken: generateActivateToken()
       };
 
       // create user and return promise

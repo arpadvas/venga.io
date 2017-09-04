@@ -48,7 +48,7 @@ class App {
     const MONGODB_CONNECTION: string = config.database;
     mongoose.Promise = global.Promise;
 
-    mongoose.connect(MONGODB_CONNECTION, function(err: any): void {
+    mongoose.connect(MONGODB_CONNECTION, { useMongoClient: true }, function(err: any): void {
       if (err) {
         console.log("There is error while connecting to MongoDB: " + err);
       } else {

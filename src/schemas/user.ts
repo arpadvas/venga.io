@@ -119,7 +119,9 @@ export const userSchema: Schema = new Schema({
   createdAt: Date,
   email: { type: String, lowercase: true, unique: true, required: true, validate: emailValidators },
   name: { type: String, required: true, validate: nameValidators },
-  password: { type: String, required: true, validate: passwordValidators }
+  password: { type: String, required: true, validate: passwordValidators },
+  activateToken: { type: String, required: true },
+  active: { type: Boolean, required: true, default: false }
 });
 
 userSchema.pre("save", function(next: NextFunction): void {

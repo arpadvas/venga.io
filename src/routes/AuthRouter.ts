@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import { User, IUserModel } from "../schemas/user";
 import { asyncWrap } from "../helpers/async";
 import { authenticateUser } from "../helpers/auth";
+import { generateActivateToken } from "../helpers/random";
 import * as jwt from "jsonwebtoken";
 import { config } from "../config/index";
 import requiresLogin from "../middlewares/requiresLogin";
@@ -23,7 +24,8 @@ export class AuthRouter {
    */
   public async registerUser(req: Request, res: Response, next: NextFunction): Promise<void> {
     if (req.body.email && req.body.name && req.body.password) {
-        const user = new User({email: req.body.email, name: req.body.name, password: req.body.password});
+        const activateToken = generateActivateToken();
+        const user = new User({email: req.body.email, name: req.body.name, password: req.body.password, activateToken: activateToken});
         const userEntry = await user.save();
         if (userEntry) {
           const token = await jwt.sign({userId: userEntry._id}, config.token_secret, {expiresIn: config.token_expire});

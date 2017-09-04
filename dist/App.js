@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const errorHandler = require("errorhandler");
-const reader_1 = require("./config/reader");
+const index_1 = require("./config/index");
 const cors = require("cors");
 // import routers
 const TestRouter_1 = require("./routes/TestRouter");
@@ -39,9 +39,9 @@ class App {
     }
     // Configure Mongo DB
     connectDB() {
-        const MONGODB_CONNECTION = reader_1.config.database;
+        const MONGODB_CONNECTION = index_1.config.database;
         mongoose.Promise = global.Promise;
-        mongoose.connect(MONGODB_CONNECTION, function (err) {
+        mongoose.connect(MONGODB_CONNECTION, { useMongoClient: true }, function (err) {
             if (err) {
                 console.log("There is error while connecting to MongoDB: " + err);
             }
