@@ -3,6 +3,7 @@ import { User, IUserModel } from "../schemas/user";
 import { asyncWrap } from "../helpers/async";
 import { authenticateUser } from "../helpers/auth";
 import { generateActivateToken } from "../helpers/random";
+import { transporter } from "../helpers/mailer";
 import * as jwt from "jsonwebtoken";
 import { config } from "../config/index";
 import requiresLogin from "../middlewares/requiresLogin";
@@ -30,6 +31,19 @@ export class AuthRouter {
         if (userEntry) {
           const token = await jwt.sign({userId: userEntry._id}, config.token_secret, {expiresIn: config.token_expire});
           res.json({ success: true, message: "User has been saved.", token: token, user: { email: userEntry.email } });
+          const mailOptions: {from: string, to: string, subject: string, text: any} = {
+              from: config.mail.user,
+              to: req.body.email,
+              subject: "Activation code",
+              text: `Hello ${req.body.name}, Please find your activation code enclosed: ${activateToken}.`
+          };
+          transporter.sendMail(mailOptions, function(err: any, res: any): void {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Email sent.");
+            }
+        });
       }
     } else {
             res.json({ success: false, message: "Make sure name, email and password were provided." });
