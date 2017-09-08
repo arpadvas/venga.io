@@ -130,7 +130,7 @@ export class RegFormComponent implements OnInit {
         this.processing = false;
         this.authService.storeUserData(data.token, data.user);
         setTimeout(() => {
-         this.router.navigate(['/timeline']);
+         this.router.navigate(['/activate']);
          this.userDetailsForNavbar.name = user.name;
          this.authService.userDetailsForNavbarUpdated.emit(this.userDetailsForNavbar);
         }, 2000);

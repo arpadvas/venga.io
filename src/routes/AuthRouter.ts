@@ -44,7 +44,7 @@ export class AuthRouter {
             } else {
                 console.log("Email sent.");
             }
-        });
+          });
       }
     } else {
             res.json({ success: false, message: "Make sure name, email and password were provided." });
@@ -70,6 +70,49 @@ export class AuthRouter {
         }
     } else {
             res.json({ success: false, message: "Make sure email and password were provided." });
+    }
+  }
+
+  /**
+   * Activate user.
+   */
+  public async activateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+    if ((<any>req)["decoded"]) {
+      if (req.body.token) {
+        const user: IUserModel = await User.findOne({ _id: (<any>req)["decoded"].userId }).select("name email activateToken active");
+        if (user) {
+          if (user.activateToken == req.body.token) {
+            user.active = true;
+            const userUpdate = await user.save();
+            if (userUpdate) {
+              res.json({ success: true, message: "Account has been activated!" });
+              const mailOptions: {from: string, to: string, subject: string, text: any} = {
+                from: config.mail.user,
+                to: user.email,
+                subject: "Activation success",
+                text: `Hello ${user.name}, Your account has been activated.`
+              };
+              transporter.sendMail(mailOptions, function(err: Error, res: SentMessageInfo): void {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Email sent.");
+                }
+              });
+            } else {
+              res.json({ success: false, message: "There was an error while activating account!" });
+            }
+          } else {
+            res.json({ success: false, message: "Activation code is not correct. Please try again!" });
+          }
+        } else {
+          res.json({ success: false, message: "There is no user registered with the details provided!" });
+        }
+      } else {
+        res.json({ success: false, message: "Activation code has not been provided!" });
+      }
+    } else {
+        res.json({ success: false, message: "Token has not been provided!" });
     }
   }
 
@@ -120,6 +163,26 @@ export class AuthRouter {
   }
 
   /**
+   * Check if user is active.
+   */
+  public async checkActive(req: Request, res: Response, next: NextFunction): Promise<void> {
+    if ((<any>req)["decoded"]) {
+      const user = await User.findOne({ _id: (<any>req)["decoded"].userId }).select("active");
+      if (user) {
+        if (user.active) {
+          res.json({ success: true, user: user });
+        } else {
+          res.json({ success: false, message: "User is not activated yet!" });
+        }
+      } else {
+        res.json({ success: false, message: "User is not found!" });
+      }
+    } else {
+      res.json({ success: false, message: "Token has not been provided!" });
+    }
+}
+
+  /**
    * Get actual user profile.
    */
   public async getProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -136,7 +199,7 @@ export class AuthRouter {
   }
 
   /**
-   * Get actual user profile.
+   * Get actual user details for navbar.
    */
   public async getUserDetailsForNavbar(req: Request, res: Response, next: NextFunction): Promise<void> {
       if ((<any>req)["decoded"]) {
@@ -162,8 +225,10 @@ export class AuthRouter {
     this.router.post("/renewAuthToken", asyncWrap(this.renewAuthToken));
     this.router.get("/users", asyncWrap(this.getAll));
     this.router.get("/checkEmail/:email", asyncWrap(this.checkEmail));
+    this.router.get("/checkActive", requiresLogin, asyncWrap(this.checkActive));
     this.router.get("/profile", requiresLogin, asyncWrap(this.getProfile));
     this.router.get("/userDetailsForNavbar", requiresLogin, asyncWrap(this.getUserDetailsForNavbar));
+    this.router.post("/activate", requiresLogin, asyncWrap(this.activateUser));
   }
 
 }

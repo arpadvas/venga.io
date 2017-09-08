@@ -6,9 +6,15 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ActivateComponent } from './components/activate/activate.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
+import { ActiveGuard } from './guards/active.guard';
+import { NotActiveGuard } from './guards/notActive.guard';
 
 const appRoutes: Routes = [
   { path: '',
+    component: HomeComponent,
+    canActivate: [NotAuthGuard]
+  },
+  { path: 'home',
     component: HomeComponent,
     canActivate: [NotAuthGuard]
   },
@@ -18,11 +24,11 @@ const appRoutes: Routes = [
   },
   { path: 'activate',
     component: ActivateComponent,
-    canActivate: [AuthGuard]
+    canActivate: [ActiveGuard]
   },
   { path: 'profile',
     component: ProfileComponent,
-    canActivate: [AuthGuard]
+    canActivate: [NotActiveGuard]
   },
   { path: '**', component: HomeComponent }
 ];

@@ -16,6 +16,7 @@ export class AuthService {
   authToken;
   user;
   options;
+  userIsActive: boolean = false;
 
   constructor(
     private http: Http
@@ -111,6 +112,31 @@ export class AuthService {
   // check if user is logged in
   loggedIn() {
     return tokenNotExpired();
+  }
+
+  // activate user
+  activate(code) {
+    this.createAuthenticationHeaders();
+    return this.http.post(`${this.domain}/api/auth/activate`, code, this.options)
+      .map(res => res.json())
+        .catch((res) => {
+          return this.handleResponseError(res);
+        });
+  }
+
+  // check if user is active
+  checkActive() {
+    // this.createAuthenticationHeaders();
+    // return this.http.get(`${this.domain}/api/auth/checkActive`, this.options)
+    //   .map(res => res.json())
+    //     .catch((res) => {
+    //       return this.handleResponseError(res);
+    //     });
+    if (this.userIsActive) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // handle errors

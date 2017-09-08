@@ -22,6 +22,8 @@ import { ActivateComponent } from './components/activate/activate.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
+import { ActiveGuard } from './guards/active.guard';
+import { NotActiveGuard } from './guards/notActive.guard';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import { NotAuthGuard } from './guards/notAuth.guard';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AuthService, AuthGuard, NotAuthGuard],
+  providers: [AuthService, AuthGuard, NotAuthGuard, ActiveGuard, NotActiveGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
