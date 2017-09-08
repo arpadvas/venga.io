@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class ActiveGuard implements CanActivate {
@@ -14,13 +15,16 @@ export class ActiveGuard implements CanActivate {
         
     }
 
-    canActivate() {
-        if (this.authService.loggedIn() && !this.authService.checkActive()) {
-            return true;
-        } else {
-            this.router.navigate(['/timeline']);
-            return false;
-        }
+    canActivate(): Observable<any> {
+        return this.authService.checkActive().map((res) => {
+            const data = res.json();
+            if (!data.success && this.authService.loggedIn()) {
+                return true;
+            } else {
+                this.router.navigate(['/timeline']);
+                return false;
+            }
+        });
     }
 
 }
