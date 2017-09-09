@@ -17,7 +17,6 @@ import { HomeComponent } from './components/home/home.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RegFormComponent } from './components/reg-form/reg-form.component';
-import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ActivateComponent } from './components/activate/activate.component';
 
 // import services
@@ -36,7 +35,6 @@ import { ProfileService } from './services/profile.service';
     TimelineComponent,
     LoginFormComponent,
     RegFormComponent,
-    SpinnerComponent,
     ActivateComponent
   ],
   imports: [
