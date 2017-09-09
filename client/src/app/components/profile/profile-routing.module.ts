@@ -4,7 +4,7 @@ import { ProfileComponent } from './profile.component';
 import { NotActiveGuard } from '../../guards/notActive.guard';
 
 const profileRoutes: Routes = [
-  { path: 'profile',
+  { path: '',
     component: ProfileComponent,
     canActivate: [NotActiveGuard]
   }

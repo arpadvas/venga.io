@@ -7,7 +7,6 @@ import { HttpModule } from '@angular/http';
 
 // import custom modules
 import { SharedModule } from './shared/shared.module';
-import { ProfileModule } from './components/profile/profile.module';
 import { TimelineModule } from './components/timeline/timeline.module';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -42,7 +41,6 @@ import { ProfileService } from './services/profile.service';
     ReactiveFormsModule,
     HttpModule,
     SharedModule,
-    ProfileModule,
     TimelineModule,
     AppRoutingModule
   ],
