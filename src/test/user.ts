@@ -29,7 +29,8 @@ describe("User", (): void => {
         email: "test1@user.com",
         name: "Test User",
         password: "Avasss1!",
-        activateToken: generateActivateToken()
+        activateToken: generateActivateToken(),
+        active: false
       };
 
       // create user and return promise

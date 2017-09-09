@@ -20,8 +20,11 @@ export class ActiveGuard implements CanActivate {
             const data = res.json();
             if (!data.success && this.authService.loggedIn()) {
                 return true;
-            } else {
+            } else if (data.success && this.authService.loggedIn()) {
                 this.router.navigate(['/timeline']);
+                return false;
+            } else {
+                this.router.navigate(['/']);
                 return false;
             }
         });

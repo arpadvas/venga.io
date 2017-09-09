@@ -23,9 +23,12 @@ export class AuthGuard implements CanActivate {
             const data = res.json();
             if (data.success && this.authService.loggedIn()) {
                 return true;
+            } else if (!data.success && this.authService.loggedIn()) {
+                this.router.navigate(['/activate']);
+                return false;
             } else {
                 this.redirectUrl = state.url;
-                this.router.navigate(['/activate']);
+                this.router.navigate(['/']);
                 return false;
             }
         });
