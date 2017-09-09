@@ -26,11 +26,10 @@ const appRoutes: Routes = [
     component: ActivateComponent,
     canActivate: [ActiveGuard]
   },
-  { path: 'profile',
-    component: ProfileComponent,
-    canActivate: [NotActiveGuard]
-  },
-  { path: '**', component: HomeComponent }
+  { path: '**', 
+    component: HomeComponent,
+    canActivate: [NotAuthGuard]
+   }
 ];
 
 @NgModule({

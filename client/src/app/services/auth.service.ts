@@ -88,16 +88,6 @@ export class AuthService {
     this.authToken = localStorage.getItem('token');
   }
 
-  // get user profile
-  getProfile() {
-    this.createAuthenticationHeaders();
-    return this.http.get(`${this.domain}/api/auth/profile`, this.options)
-      .map(res => res.json())
-        .catch((res) => {
-          return this.handleResponseError(res);
-        });
-  }
-
   // get user details for navbar
   getUserDetailForNavbar() {
     this.createAuthenticationHeaders();
