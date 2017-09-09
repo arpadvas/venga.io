@@ -4,10 +4,8 @@ import { HomeComponent } from './components/home/home.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ActivateComponent } from './components/activate/activate.component';
-import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
 import { ActiveGuard } from './guards/active.guard';
-import { NotActiveGuard } from './guards/notActive.guard';
 
 const appRoutes: Routes = [
   { path: '',
@@ -17,10 +15,6 @@ const appRoutes: Routes = [
   { path: 'home',
     component: HomeComponent,
     canActivate: [NotAuthGuard]
-  },
-  { path: 'timeline',
-    component: TimelineComponent,
-    canActivate: [AuthGuard]
   },
   { path: 'activate',
     component: ActivateComponent,
