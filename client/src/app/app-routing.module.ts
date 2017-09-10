@@ -1,9 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
-import { ActivateComponent } from './components/activate/activate.component';
 import { NotAuthGuard } from './guards/notAuth.guard';
-import { ActiveGuard } from './guards/active.guard';
 
 const appRoutes: Routes = [
   { path: '',
@@ -15,8 +13,7 @@ const appRoutes: Routes = [
     canActivate: [NotAuthGuard]
   },
   { path: 'activate',
-    component: ActivateComponent,
-    canActivate: [ActiveGuard]
+    loadChildren: './components/activate/activate.module#ActivateModule'
   },
   { path: 'profile',
     loadChildren: './components/profile/profile.module#ProfileModule'

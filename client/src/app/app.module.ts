@@ -16,7 +16,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RegFormComponent } from './components/reg-form/reg-form.component';
-import { ActivateComponent } from './components/activate/activate.component';
 
 // import services
 import { AuthService } from './services/auth.service';
@@ -32,8 +31,7 @@ import { ProfileService } from './services/profile.service';
     NavbarComponent,
     HomeComponent,
     LoginFormComponent,
-    RegFormComponent,
-    ActivateComponent
+    RegFormComponent
   ],
   imports: [
     BrowserModule,
