@@ -15,9 +15,6 @@ import { RegFormComponent } from './reg-form/reg-form.component';
 // import services
 import { AuthService } from '../../services/auth.service';
 import { AuthGuard } from '../../guards/auth.guard';
-import { NotAuthGuard } from '../../guards/notAuth.guard';
-import { ActiveGuard } from '../../guards/active.guard';
-import { NotActiveGuard } from '../../guards/notActive.guard';
 
 @NgModule({
     declarations: [
@@ -35,10 +32,7 @@ import { NotActiveGuard } from '../../guards/notActive.guard';
     ],
     providers: [
         AuthService, 
-        AuthGuard, 
-        NotAuthGuard, 
-        ActiveGuard, 
-        NotActiveGuard
+        AuthGuard
     ],
     exports: [
         AppRoutingModule,

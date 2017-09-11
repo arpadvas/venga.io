@@ -13,7 +13,7 @@ const profileRoutes: Routes = [
 @NgModule({
   declarations: [],
   imports: [RouterModule.forChild(profileRoutes)],
-  providers: [],
+  providers: [NotActiveGuard],
   bootstrap: [],
   exports: [RouterModule]
 })

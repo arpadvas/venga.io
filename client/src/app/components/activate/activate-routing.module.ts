@@ -13,7 +13,7 @@ const activateRoutes: Routes = [
 @NgModule({
   declarations: [],
   imports: [RouterModule.forChild(activateRoutes)],
-  providers: [],
+  providers: [ActiveGuard],
   bootstrap: [],
   exports: [RouterModule]
 })
