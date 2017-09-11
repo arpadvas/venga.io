@@ -1,21 +1,16 @@
 // import core angular modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // import custom modules
 import { SharedModule } from './shared/shared.module';
 import { TimelineModule } from './components/timeline/timeline.module';
 import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './components/core/core.module';
 
 // import components
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { HomeComponent } from './components/home/home.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-import { RegFormComponent } from './components/reg-form/reg-form.component';
 
 // import services
 import { AuthService } from './services/auth.service';
@@ -27,20 +22,15 @@ import { ProfileService } from './services/profile.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    HomeComponent,
-    LoginFormComponent,
-    RegFormComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpModule,
     SharedModule,
     TimelineModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CoreModule
   ],
   providers: [
     AuthService, 

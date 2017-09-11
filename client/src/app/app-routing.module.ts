@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/core/home/home.component';
 import { NotAuthGuard } from './guards/notAuth.guard';
 
 const appRoutes: Routes = [
