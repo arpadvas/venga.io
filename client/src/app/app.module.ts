@@ -12,14 +12,6 @@ import { CoreModule } from './components/core/core.module';
 // import components
 import { AppComponent } from './app.component';
 
-// import services
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from './guards/auth.guard';
-import { NotAuthGuard } from './guards/notAuth.guard';
-import { ActiveGuard } from './guards/active.guard';
-import { NotActiveGuard } from './guards/notActive.guard';
-import { ProfileService } from './services/profile.service';
-
 @NgModule({
   declarations: [
     AppComponent
@@ -33,12 +25,7 @@ import { ProfileService } from './services/profile.service';
     CoreModule
   ],
   providers: [
-    AuthService, 
-    AuthGuard, 
-    NotAuthGuard, 
-    ActiveGuard, 
-    NotActiveGuard, 
-    ProfileService
+    
   ],
   bootstrap: [AppComponent]
 })
