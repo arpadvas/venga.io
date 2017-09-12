@@ -22,10 +22,8 @@
 		              <!-- Name -->
 		              <div class="form-group">
 		                <div [ngClass]="{'has-error': (form.controls.name.errors && form.controls.name.dirty), 'has-success': !form.controls.name.errors}">
-		                  <input id="name" type="text" placeholder="Name" name="name" class="form-control form-group__input" formControlName="name">
+		                  <input id="name" type="text" placeholder="Name" name="name" class="form-control form-group__input" formControlName="name" tooltip="Name must be between 3 and 40 characters, must not contain numbers and special characters but must have a space between first and last name!" triggers="focus">
 		                  <p class="help-block" *ngIf="form.controls.name.errors?.required && form.controls.name.dirty">This field is required.</p>
-											<p class="help-block" *ngIf="(form.controls.name.errors?.minlength || form.controls.name.errors?.maxlength) && form.controls.name.dirty">Name must be between 3 and 40 characters.</p>
-		                  <p class="help-block" *ngIf="form.controls.name.errors?.validateName && form.controls.name.dirty">Name must not contain numbers and special characters but must have a space between first and last name!</p>
 		                </div>
 		              </div>
 
@@ -33,11 +31,9 @@
 		              <!-- Email -->
 		              <div class="form-group">
 		                <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty) || (!emailValid && form.controls.email.dirty), 'has-success': !form.controls.email.errors && emailValid}">
-		                  <input id="email" type="email" placeholder="Email address" name="email" class="form-control form-group__input" formControlName="email" (blur)="checkEmail()">
+		                  <input id="email" type="email" placeholder="Email address" name="email" class="form-control form-group__input" formControlName="email" (blur)="checkEmail()" tooltip="Must be a valid email address between 3 and 40 characters." triggers="focus">
 		                  <p class="help-block" *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is required.</p>
-											<p class="help-block" *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">Email must be between 3 and 40 characters.</p>
-		                  <p class="help-block" *ngIf="emailMessage">{{emailMessage}}</p>
-		                  <p class="help-block" *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">Please enter a valid email address.</p>
+		                  <p class="help-block" *ngIf="emailMessage && !form.controls.email.errors">{{emailMessage}}</p>
 		                </div>
 		              </div>
 
@@ -45,10 +41,8 @@
 		              <!-- Password -->
 		              <div class="form-group">
 		                <div [ngClass]="{'has-error': (form.controls.password.errors && form.controls.password.dirty), 'has-success': !form.controls.password.errors}">
-		                  <input id="pw" type="password" name="password" class="form-control form-group__input" placeholder="Password" formControlName="password">
+		                  <input id="pw" type="password" name="password" class="form-control form-group__input" placeholder="Password" formControlName="password" tooltip="Password must be between 6 and 20 characters, must contain at least one number, one lower case and one upper case character!" triggers="focus">
 		                  <p class="help-block" *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required.</p>
-											<p class="help-block" *ngIf="(form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength) && form.controls.password.dirty">Password must be between 6 and 20 characters.</p>
-		                  <p class="help-block" *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">Password must contain at least one number, one lower case and one upper case character!</p>
 		                </div>
 		              </div>
 

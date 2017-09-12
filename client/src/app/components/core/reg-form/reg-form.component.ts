@@ -103,16 +103,18 @@ export class RegFormComponent implements OnInit {
   }
 
   checkEmail() {
-    const email = this.form.get('email').value;
-    this.authService.checkEmail(email).subscribe(data => {
-      if(data.success) {
-        this.emailValid = true;
-        this.emailMessage = data.message;
-      } else {
-        this.emailValid = false;
-        this.emailMessage = data.message;
-      }
-    });
+    if (!this.form.controls.email.errors) {
+      const email = this.form.get('email').value;
+      this.authService.checkEmail(email).subscribe(data => {
+        if(data.success) {
+          this.emailValid = true;
+          this.emailMessage = data.message;
+        } else {
+          this.emailValid = false;
+          this.emailMessage = data.message;
+        }
+      });
+    }
   }
 
   onRegisterSubmit() {

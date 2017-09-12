@@ -11,6 +11,7 @@ import { AppRoutingModule } from '../../app-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegFormComponent } from './reg-form/reg-form.component';
+import { TooltipModule } from 'ngx-bootstrap';
 
 // import services
 import { AuthService } from '../../services/auth.service';
@@ -28,7 +29,8 @@ import { AuthGuard } from '../../guards/auth.guard';
         FormsModule,
         ReactiveFormsModule,
         AppRoutingModule,
-        SharedModule
+        SharedModule,
+        TooltipModule.forRoot()
     ],
     providers: [
         AuthService, 

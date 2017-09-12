@@ -114,7 +114,7 @@ export class AuthRouter {
           res.json({ success: false, message: "There is no user registered with the details provided!" });
         }
       } else {
-        res.json({ success: false, message: "Password has not been provided!" })
+        res.json({ success: false, message: "Password has not been provided!" });
       }
     } else {
       res.json({ success: false, message: "Token has not been provided!" });
