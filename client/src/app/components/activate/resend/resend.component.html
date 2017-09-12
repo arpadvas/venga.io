@@ -5,25 +5,25 @@
   <!-- main content -->
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-    <h1 class="h-no-top-margin grey-header">Account activation</h1>
+    <h1 class="h-no-top-margin grey-header">Resend activation code</h1>
 
     <hr>
 
-    <div class="col-md-3">
+    <!--<div class="col-md-3">
     </div>
     <div class="col-md-6">
       <div class="panel panel-primary panel-landing">
       <div class="panel-heading panel-custom">
-        <h3 class="panel-title">Activate your account!</h3>
+        <h3 class="panel-title">Please authenticate yourself!</h3>
       </div>
       <div class="panel-body">
-        <div class="content">
+        <div class="content">-->
 
           <!--activate form-->
-          <form [formGroup]="form" (submit)="onActivateSubmit()">
+          <!--<form [formGroup]="form" (submit)="onActivateSubmit()">-->
 
             <!--token input-->
-            <div class="form-group">
+            <!--<div class="form-group">
               <div [ngClass]="{'has-error': form.controls.token.errors && form.controls.token.dirty, 'has-success': form.controls.token.valid && form.controls.token.dirty }">
                 <input type="text" id="token" placeholder="token" name="token" formControlName="token" class="form-control form-group__input"/>
                 <p class="help-block" *ngIf="form.controls.token.errors?.required && form.controls.token.dirty">This field is required.</p>
@@ -31,14 +31,14 @@
             </div>
 
             <button [disabled]="!form.valid || processing" type="submit" class="btn btn-landing">Activate account</button>
-            <button *ngIf="isWrongCode" (click)="onResend()" class="btn btn-landing">Resend code</button>
-          </form>
+            <button *ngIf="isWrongCode" class="btn btn-landing">Resend code</button>
+          </form>-->
 
           <!--spinner-->
-          <app-spinner [ngClass]="{ 'hide': !processing }"></app-spinner>
+          <!--<app-spinner [ngClass]="{ 'hide': !processing }"></app-spinner>-->
 
           <!--message-->
-          <div class="show-hide-message" role="alert">
+          <!--<div class="show-hide-message" role="alert">
             <div [ngClass]="messageClass">
               <p>{{message}}</p>
             </div>
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="col-md-3">
-    </div>
+    </div>-->
 
   </div> 
   <!-- end of main content -->

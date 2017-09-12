@@ -14,6 +14,7 @@ export class ActivateComponent implements OnInit {
   message: string;
   messageClass: string;
   processing: boolean = false;
+  isWrongCode: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,6 +50,7 @@ export class ActivateComponent implements OnInit {
         this.message = data.message;
         this.processing = false;
         this.enableForm();
+        this.isWrongCode = true;
       } else {
         this.messageClass = 'alert alert-success alert-custom';
         this.message = data.message;
@@ -59,6 +61,11 @@ export class ActivateComponent implements OnInit {
       }
     });
   }
+
+  onResend() {
+    this.router.navigate(['/activate/resend']);
+    this.isWrongCode = false;
+  } 
 
   ngOnInit() {
   }

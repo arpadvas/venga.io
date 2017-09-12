@@ -5,10 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActivateComponent } from './activate.component';
 import { ActivateRoutingModule } from './activate-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { ResendComponent } from './resend/resend.component';
 
 @NgModule({
     declarations: [
-        ActivateComponent
+        ActivateComponent,
+        ResendComponent
     ],
     imports: [
         CommonModule,
