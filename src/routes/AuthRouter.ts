@@ -74,6 +74,54 @@ export class AuthRouter {
   }
 
   /**
+   * Resend activation code.
+   */
+  public async resendActCode(req: Request, res: Response, next: NextFunction): Promise<void> {
+    if ((<any>req)["decoded"]) {
+      if (req.body.password) {
+        const tempUser: IUserModel = await User.findOne({ _id: (<any>req)["decoded"].userId }).select("password");
+        if (tempUser) {
+          const isAuthenticated = await authenticateUser(req.body.password, tempUser.password);
+          if (isAuthenticated) {
+            const user: IUserModel = await User.findOne({ _id: (<any>req)["decoded"].userId }).select("name email activateToken");
+            if (user) {
+              const activateToken = generateActivateToken();
+              user.activateToken = activateToken;
+              const userUpdate = await user.save();
+              if (userUpdate) {
+                res.json({ success: true, message: "Activation code has been sent!" });
+                const mailOptions: {from: string, to: string, subject: string, text: any} = {
+                  from: config.mail.user,
+                  to: user.email,
+                  subject: "Activation code",
+                  text: `Hello ${user.name}, Please find your activation code enclosed: ${activateToken}.`
+                };
+                transporter.sendMail(mailOptions, function(err: Error, res: SentMessageInfo): void {
+                  if (err) {
+                      console.log(err);
+                  } else {
+                      console.log("Email sent.");
+                  }
+                });
+              } else {
+                res.json({ success: false, message: "There was an error while saving account!" });
+              }
+            }
+          } else {
+            res.json({ success: false, message: "Authentication failed!" });
+          }
+        } else {
+          res.json({ success: false, message: "There is no user registered with the details provided!" });
+        }
+      } else {
+        res.json({ success: false, message: "Password has not been provided!" })
+      }
+    } else {
+      res.json({ success: false, message: "Token has not been provided!" });
+    }
+  }
+
+  /**
    * Activate user.
    */
   public async activateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -222,6 +270,7 @@ export class AuthRouter {
   init(): void {
     this.router.post("/register", asyncWrap(this.registerUser));
     this.router.post("/login", asyncWrap(this.loginUser));
+    this.router.post("/resend", requiresLogin, asyncWrap(this.resendActCode));
     this.router.post("/renewAuthToken", asyncWrap(this.renewAuthToken));
     this.router.get("/users", asyncWrap(this.getAll));
     this.router.get("/checkEmail/:email", asyncWrap(this.checkEmail));

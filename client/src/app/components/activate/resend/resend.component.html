@@ -9,7 +9,7 @@
 
     <hr>
 
-    <!--<div class="col-md-3">
+    <div class="col-md-3">
     </div>
     <div class="col-md-6">
       <div class="panel panel-primary panel-landing">
@@ -17,28 +17,27 @@
         <h3 class="panel-title">Please authenticate yourself!</h3>
       </div>
       <div class="panel-body">
-        <div class="content">-->
+        <div class="content">
 
           <!--activate form-->
-          <!--<form [formGroup]="form" (submit)="onActivateSubmit()">-->
+          <form [formGroup]="form" (submit)="onResendSubmit()">
 
-            <!--token input-->
-            <!--<div class="form-group">
-              <div [ngClass]="{'has-error': form.controls.token.errors && form.controls.token.dirty, 'has-success': form.controls.token.valid && form.controls.token.dirty }">
-                <input type="text" id="token" placeholder="token" name="token" formControlName="token" class="form-control form-group__input"/>
-                <p class="help-block" *ngIf="form.controls.token.errors?.required && form.controls.token.dirty">This field is required.</p>
+            <!--password input-->
+            <div class="form-group">
+              <div [ngClass]="{'has-error': form.controls.password.errors && form.controls.password.dirty, 'has-success': form.controls.password.valid && form.controls.password.dirty }">
+                <input type="password" id="password" placeholder="password" name="password" formControlName="password" class="form-control form-group__input"/>
+                <p class="help-block" *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required.</p>
               </div>
             </div>
 
-            <button [disabled]="!form.valid || processing" type="submit" class="btn btn-landing">Activate account</button>
-            <button *ngIf="isWrongCode" class="btn btn-landing">Resend code</button>
-          </form>-->
+            <button [disabled]="!form.valid || processing" type="submit" class="btn btn-landing">Resend code</button>
+          </form>
 
           <!--spinner-->
-          <!--<app-spinner [ngClass]="{ 'hide': !processing }"></app-spinner>-->
+          <app-spinner [ngClass]="{ 'hide': !processing }"></app-spinner>
 
           <!--message-->
-          <!--<div class="show-hide-message" role="alert">
+          <div class="show-hide-message" role="alert">
             <div [ngClass]="messageClass">
               <p>{{message}}</p>
             </div>
@@ -49,7 +48,7 @@
       </div>
     </div>
     <div class="col-md-3">
-    </div>-->
+    </div>
 
   </div> 
   <!-- end of main content -->

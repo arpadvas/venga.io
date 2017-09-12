@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   // check if email is already taken
-  checkEmail(email) {
+  checkEmail(email): Observable<any> {
     return this.http.get(`${this.domain}/api/auth/checkEmail/${email}`)
       .map(res => res.json())
         .catch((res) => {
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   // login user
-  login(user) {
+  login(user): Observable<any> {
     return this.http.post(`${this.domain}/api/auth/login`, user)
       .map(res => res.json())
         .catch((res) => {
@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   // renew auth token
-  renewAuthToken(user) {
+  renewAuthToken(user): Observable<any> {
     return this.http.post(`${this.domain}/api/auth/renewAuthToken`, user)
       .map(res => res.json())
         .catch((res) => {
@@ -89,7 +89,7 @@ export class AuthService {
   }
 
   // get user details for navbar
-  getUserDetailForNavbar() {
+  getUserDetailForNavbar(): Observable<any> {
     this.createAuthenticationHeaders();
     return this.http.get(`${this.domain}/api/auth/userDetailsForNavbar`, this.options)
       .map(res => res.json())
@@ -104,7 +104,7 @@ export class AuthService {
   }
 
   // activate user
-  activate(code) {
+  activate(code): Observable<any> {
     this.createAuthenticationHeaders();
     return this.http.post(`${this.domain}/api/auth/activate`, code, this.options)
       .map(res => res.json())
@@ -113,8 +113,18 @@ export class AuthService {
         });
   }
 
+   // resend activation code
+  resendActCode(password): Observable<any> {
+    this.createAuthenticationHeaders();
+    return this.http.post(`${this.domain}/api/auth/resend`, password, this.options)
+      .map(res => res.json())
+        .catch((res) => {
+          return this.handleResponseError(res);
+        });
+  }
+
   // check if user is active
-  checkActive() {
+  checkActive(): Observable<any> {
     this.createAuthenticationHeaders();
     return this.http.get(`${this.domain}/api/auth/checkActive`, this.options);
   }
