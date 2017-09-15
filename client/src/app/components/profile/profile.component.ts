@@ -10,6 +10,8 @@ export class ProfileComponent implements OnInit {
 
   name = '';
   email = '';
+  message: string;
+  messageClass: string;
 
   constructor(
     private profileService: ProfileService
