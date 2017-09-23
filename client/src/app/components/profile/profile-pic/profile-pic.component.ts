@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-profile-pic',
@@ -7,7 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePicComponent implements OnInit {
 
+  @Input() profilePic;
+  profilePicButtonVisible: boolean = false;
+
   constructor() { }
+
+  showProfilePicButton() {
+    this.profilePicButtonVisible = true;
+  }
+
+  hideProfilePicButton() {
+    this.profilePicButtonVisible = false;
+  }
+
+  upload() {
+    
+  }
 
   ngOnInit() {
   }

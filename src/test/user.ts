@@ -30,7 +30,12 @@ describe("User", (): void => {
         name: "Test User",
         password: "Avasss1!",
         activateToken: generateActivateToken(),
-        active: false
+        active: false,
+        profilePicture: {url: "https://s17.postimg.org/6oc9lqm0f/no-avatar.png"},
+        backgroundPicture: {url: "https://s7.postimg.org/3t905fn4r/sng.png"},
+        description: "No description added",
+        gender: "No gender added",
+        country: "No place added"
       };
 
       // create user and return promise

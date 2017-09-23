@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-bg-pic',
@@ -7,7 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BgPicComponent implements OnInit {
 
+  @Input() backgroundPic;
+  backgroundPicButtonVisible: boolean = false;
+
   constructor() { }
+
+  showBackgroundPicButton() {
+    this.backgroundPicButtonVisible = true;
+  }
+
+  hideBackgroundPicButton() {
+    this.backgroundPicButtonVisible = false;
+  }
+
+  upload() {
+    
+  }
 
   ngOnInit() {
   }

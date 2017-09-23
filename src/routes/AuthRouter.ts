@@ -235,7 +235,7 @@ export class AuthRouter {
    */
   public async getProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
       if ((<any>req)["decoded"]) {
-        const user = await User.findOne({ _id: (<any>req)["decoded"].userId }).select("name email");
+        const user = await User.findOne({ _id: (<any>req)["decoded"].userId }).select("name email profilePicture backgroundPicture description gender country");
         if (user) {
           res.json({ success: true, user: user });
         } else {

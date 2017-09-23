@@ -4,4 +4,9 @@ export interface IUser {
   password: string;
   activateToken: string;
   active: boolean;
+  profilePicture: { url: string };
+  backgroundPicture: { url: string };
+  description: string;
+  gender: string;
+  country: string;
 }

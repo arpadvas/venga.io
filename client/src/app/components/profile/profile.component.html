@@ -13,15 +13,19 @@
 
           <div class="container-fluid">
 
-            <app-bg-pic></app-bg-pic>
+            <app-bg-pic [backgroundPic]="backgroundPic"></app-bg-pic>
 
             <div class="row no-margin">
 
-              <app-profile-pic></app-profile-pic>
+              <app-profile-pic [profilePic]="profilePic"></app-profile-pic>
 
               <div class="col-md-9 p-10">
 
-                <app-prof-desc></app-prof-desc>
+                <app-prof-desc [name]="name"
+                               [description]="description" 
+                               [gender]="gender" 
+                               [country]="country">
+                </app-prof-desc>
 
               </div>
             </div>
