@@ -247,6 +247,32 @@ export class AuthRouter {
   }
 
   /**
+   * Update user profile.
+   */
+  public async updateProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
+    if ((<any>req)["decoded"]) {
+      const user = await User.findOne({ _id: (<any>req)["decoded"].userId }).select("profilePicture backgroundPicture description gender country");
+      if (user) {
+        if (req.body.gender) {
+          user.gender = req.body.gender;
+        } else if (req.body.description) {
+          user.description = req.body.description;
+        } else if (req.body.country) {
+          user.country = req.body.country;
+        }
+        const userUpdate = await user.save();
+        if (userUpdate) {
+          res.json({ success: true, message: "Account has been updated!" });
+        }
+      } else {
+        res.json({ success: false, message: "User is not found!" });
+      }
+    } else {
+      res.json({ success: false, message: "Token has not been provided!" });
+    }
+}
+
+  /**
    * Get actual user details for navbar.
    */
   public async getUserDetailsForNavbar(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -276,6 +302,7 @@ export class AuthRouter {
     this.router.get("/checkEmail/:email", asyncWrap(this.checkEmail));
     this.router.get("/checkActive", requiresLogin, asyncWrap(this.checkActive));
     this.router.get("/profile", requiresLogin, asyncWrap(this.getProfile));
+    this.router.put("/profile", requiresLogin, asyncWrap(this.updateProfile));
     this.router.get("/userDetailsForNavbar", requiresLogin, asyncWrap(this.getUserDetailsForNavbar));
     this.router.post("/activate", requiresLogin, asyncWrap(this.activateUser));
   }

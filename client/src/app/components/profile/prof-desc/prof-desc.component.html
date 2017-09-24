@@ -4,18 +4,20 @@
   <div *ngIf="editDescription">
     <textarea class="form-control description" rows="3" [(ngModel)]="descriptionEdited" maxLength="400"></textarea>
     <button type="button" class="btn btn-default" (click)="saveDescription();">Save</button>
-    <button type="button" class="btn btn-default" (click)="editDescription = false;">Cancel</button>
+    <button type="button" class="btn btn-default" (click)="editDescription = false; showDescriptionPencil = false;">Cancel</button>
   </div>
-  <!-- <li class="list-group-item no-border" ng-mouseover="profile.showGenderPencil = true;" ng-mouseleave="profile.showGenderPencil = false;" ng-show="!profile.editGender">Gender:&nbsp;{{currentUser.gender}}&nbsp;<i class="fa fa-pencil" aria-hidden="true" ng-click="profile.showEditGender();" ng-show="profile.showGenderPencil"></i></li> -->
-  <!-- <div ng-show="profile.editGender">
-    <select class="form-control description" ng-model="profile.genderEdited" ng-options="y for y in profile.genders"></select>
-    <button type="button" class="btn btn-default" ng-click="profile.saveGender();">Save</button>
-    <button type="button" class="btn btn-default" ng-click="profile.editGender = false;">Cancel</button>
-  </div> -->
-  <!-- <li class="list-group-item no-border" ng-mouseover="profile.showCountryPencil = true;" ng-mouseleave="profile.showCountryPencil = false;" ng-show="!profile.editCountry">Place:&nbsp;{{currentUser.country}}&nbsp;<i class="fa fa-pencil" aria-hidden="true" ng-click="profile.showEditCountry();" ng-show="profile.showCountryPencil"></i></li> -->
-  <!-- <div ng-show="profile.editCountry">
-    <autocomplete datasource="profile.country_list" input="profile.countryEdited" hide="profile.hidethis"></autocomplete>
-    <button type="button" class="btn btn-default" ng-click="profile.saveCountry();">Save</button>
-    <button type="button" class="btn btn-default" ng-click="profile.editCountry = false;">Cancel</button>
-  </div> -->
+  <li class="list-group-item no-border" (mouseover)="showGenderPencil = true;" (mouseleave)="showGenderPencil = false;" *ngIf="!editGender">Gender:&nbsp;{{gender}}&nbsp;<i class="fa fa-pencil" aria-hidden="true" (click)="showEditGender();" *ngIf="showGenderPencil"></i></li>
+  <div *ngIf="editGender">
+    <select class="form-control description" [(ngModel)]="genderEdited">
+      <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+    </select>
+    <button type="button" class="btn btn-default" (click)="saveGender();">Save</button>
+    <button type="button" class="btn btn-default" (click)="editGender = false; showGenderPencil = false;">Cancel</button>
+  </div>
+  <li class="list-group-item no-border" (mouseover)="showCountryPencil = true;" (mouseleave)="showCountryPencil = false;" *ngIf="!editCountry">Place:&nbsp;{{country}}&nbsp;<i class="fa fa-pencil" aria-hidden="true" (click)="showEditCountry();" *ngIf="showCountryPencil"></i></li>
+  <div *ngIf="editCountry">
+    <p-autoComplete class="autocomplete" [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" [(ngModel)]="countryEdited"></p-autoComplete>
+    <button type="button" class="btn btn-default" (click)="saveCountry();">Save</button>
+    <button type="button" class="btn btn-default" (click)="editCountry = false; showCountryPencil = false;">Cancel</button>
+  </div>
 </ul>

@@ -1,0 +1,8 @@
+p-autoComplete {
+    display: block;
+    position: relative;
+}
+
+select {
+    margin-top: 5px;
+}

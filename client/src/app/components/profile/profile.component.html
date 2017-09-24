@@ -24,7 +24,9 @@
                 <app-prof-desc [name]="name"
                                [description]="description" 
                                [gender]="gender" 
-                               [country]="country">
+                               [country]="country"
+                               (processing)="onProcessing($event)"
+                               (profileUpdated)="onProfileUpdated($event)">
                 </app-prof-desc>
 
               </div>
@@ -33,7 +35,7 @@
             <div class="row no-margin">
               <div class="col-md-12 text-center p-10">
 
-                <app-spinner></app-spinner>
+                <app-spinner [ngClass]="{ 'hide': !processing }"></app-spinner>
 
                 <div class="show-hide-message" role="alert">
 									<div [ngClass]="messageClass">

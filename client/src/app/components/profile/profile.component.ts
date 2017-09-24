@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
+import { ServerResponse } from '../../models/server-response.model';
 
 @Component({
   selector: 'app-profile',
@@ -16,10 +17,33 @@ export class ProfileComponent implements OnInit {
   messageClass: string;
   profilePic: string;
   backgroundPic: string;
+  processing: boolean = false;
 
   constructor(
     private profileService: ProfileService
   ) { }
+
+  onProcessing(data: boolean) {
+    if (data) {
+      this.processing = true;
+    } else {
+      this.processing = false;
+    }
+  }
+
+  onProfileUpdated(data: ServerResponse) {
+    if (data.success) {
+      this.messageClass = 'alert alert-success alert-custom';
+      this.message = data.message;
+    } else {
+      this.messageClass = 'alert alert-danger alert-custom';
+      this.message = data.message;
+    }
+    setTimeout(() => {
+      this.messageClass = '';
+      this.message = '';
+    }, 2000);
+  }
 
   ngOnInit() {
     this.profileService.getProfile().subscribe(profile => {

@@ -8,6 +8,7 @@ import { ProfileService } from '../../services/profile.service';
 import { BgPicComponent } from './bg-pic/bg-pic.component';
 import { ProfilePicComponent } from './profile-pic/profile-pic.component';
 import { ProfDescComponent } from './prof-desc/prof-desc.component';
+import { AutoCompleteModule } from 'primeng/primeng';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { ProfDescComponent } from './prof-desc/prof-desc.component';
         CommonModule,
         FormsModule,
         ProfileRoutingModule,
-        SharedModule
+        SharedModule,
+        AutoCompleteModule
     ],
     providers: [
         ProfileService

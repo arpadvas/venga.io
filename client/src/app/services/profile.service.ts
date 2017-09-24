@@ -43,6 +43,16 @@ export class ProfileService {
         });
   }
 
+  // update profile
+  updateProfile(updated): Observable<any> {
+  this.createAuthenticationHeaders();
+  return this.http.put(`${this.domain}/api/auth/profile`, updated, this.options)
+    .map(res => res.json())
+      .catch((res) => {
+        return this.handleResponseError(res);
+      });
+  }
+
   // handle errors
   private handleResponseError(res): Observable<any> {
     return Observable.throw(res);
