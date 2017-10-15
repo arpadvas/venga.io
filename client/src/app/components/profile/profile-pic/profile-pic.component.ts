@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import filestack from 'filestack-js';
 
 @Component({
   selector: 'app-profile-pic',
@@ -20,8 +21,18 @@ export class ProfilePicComponent implements OnInit {
     this.profilePicButtonVisible = false;
   }
 
-  upload() {
-    
+  async upload() {
+    const filestackApiKey: string = 'Ay5j7d8n6SjWjkhUeHOHxz';
+    const client = filestack.init(filestackApiKey);
+    const result = await client.pick({
+      accept: 'image/*',
+      fromSources:  ['local_file_system','facebook','googledrive','instagram','dropbox','imagesearch','webcam',],
+      maxSize: 1024*2024,
+      maxFiles: 1,
+    });
+    if (result) {
+      this.profilePic = result.filesUploaded[0].url;
+    }
   }
 
   ngOnInit() {
