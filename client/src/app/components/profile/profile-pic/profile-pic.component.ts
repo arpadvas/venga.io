@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import filestack from 'filestack-js';
 import { ProfileService } from '../../../services/profile.service';
 import { ServerResponse } from '../../../models/server-response.model';
@@ -12,6 +12,8 @@ export class ProfilePicComponent implements OnInit {
 
   @Input() profilePic;
   profilePicButtonVisible: boolean = false;
+  @Output() processing = new EventEmitter<boolean>();
+  @Output() profileUpdated = new EventEmitter<ServerResponse>();
 
   constructor(private profileService: ProfileService) { }
 
@@ -24,11 +26,10 @@ export class ProfilePicComponent implements OnInit {
   }
 
   saveChanges(updated) {
-    // this.processing.emit(true);
+    this.processing.emit(true);
     this.profileService.updateProfile(updated).subscribe((res: ServerResponse) => {
-      console.log(res);
-      // this.processing.emit(false);
-      // this.profileUpdated.emit(res);
+      this.processing.emit(false);
+      this.profileUpdated.emit(res);
     });
   }
 

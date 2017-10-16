@@ -17,7 +17,9 @@
 
             <div class="row no-margin">
 
-              <app-profile-pic [profilePic]="profilePic"></app-profile-pic>
+              <app-profile-pic [profilePic]="profilePic"
+                               (processing)="onProcessing($event)"
+                               (profileUpdated)="onProfileUpdated($event)"></app-profile-pic>
 
               <div class="col-md-9 p-10">
 
