@@ -13,7 +13,9 @@
 
           <div class="container-fluid">
 
-            <app-bg-pic [backgroundPic]="backgroundPic"></app-bg-pic>
+            <app-bg-pic [backgroundPic]="backgroundPic"
+                        (processing)="onProcessing($event)"
+                        (profileUpdated)="onProfileUpdated($event)"></app-bg-pic>
 
             <div class="row no-margin">
 

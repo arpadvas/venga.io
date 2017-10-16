@@ -123,7 +123,7 @@ export const userSchema: Schema = new Schema({
   activateToken: { type: String, required: true },
   active: { type: Boolean, required: true, default: false },
   profilePicture: { type: String, default: "https://s17.postimg.org/6oc9lqm0f/no-avatar.png" },
-  backgroundPicture: { type: Schema.Types.Mixed, default: {url: "https://s7.postimg.org/3t905fn4r/sng.png"} },
+  backgroundPicture: { type: String, default: "https://s7.postimg.org/3t905fn4r/sng.png" },
   description: { type: String, default: "No description added" },
   gender: { type: String, default: "No gender added" },
   country: { type: String, default: "No place added" }

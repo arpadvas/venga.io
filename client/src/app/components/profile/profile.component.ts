@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
       this.gender = profile.user.gender;
       this.country = profile.user.country;
       this.profilePic = profile.user.profilePicture;
-      this.backgroundPic = profile.user.backgroundPicture.url;
+      this.backgroundPic = profile.user.backgroundPicture;
     });
   }
 

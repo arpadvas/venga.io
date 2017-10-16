@@ -261,6 +261,8 @@ export class AuthRouter {
           user.country = req.body.country;
         } else if (req.body.profilePicture) {
           user.profilePicture = req.body.profilePicture;
+        } else if (req.body.backgroundPicture) {
+          user.backgroundPicture = req.body.backgroundPicture;
         }
         const userUpdate = await user.save();
         if (userUpdate) {
