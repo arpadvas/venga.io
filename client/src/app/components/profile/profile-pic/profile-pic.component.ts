@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import filestack from 'filestack-js';
+import { ProfileService } from '../../../services/profile.service';
+import { ServerResponse } from '../../../models/server-response.model';
 
 @Component({
   selector: 'app-profile-pic',
@@ -11,7 +13,7 @@ export class ProfilePicComponent implements OnInit {
   @Input() profilePic;
   profilePicButtonVisible: boolean = false;
 
-  constructor() { }
+  constructor(private profileService: ProfileService) { }
 
   showProfilePicButton() {
     this.profilePicButtonVisible = true;
@@ -19,6 +21,15 @@ export class ProfilePicComponent implements OnInit {
 
   hideProfilePicButton() {
     this.profilePicButtonVisible = false;
+  }
+
+  saveChanges(updated) {
+    // this.processing.emit(true);
+    this.profileService.updateProfile(updated).subscribe((res: ServerResponse) => {
+      console.log(res);
+      // this.processing.emit(false);
+      // this.profileUpdated.emit(res);
+    });
   }
 
   async upload() {
@@ -32,6 +43,10 @@ export class ProfilePicComponent implements OnInit {
     });
     if (result) {
       this.profilePic = result.filesUploaded[0].url;
+      const profilePicture = {
+        profilePicture: this.profilePic
+      };
+      this.saveChanges(profilePicture);
     }
   }
 
