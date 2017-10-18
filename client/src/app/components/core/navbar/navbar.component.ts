@@ -20,6 +20,9 @@ export class NavbarComponent implements OnInit {
       this.authService.userDetailsForNavbarUpdated.subscribe((userDetailsForNavbar) => {
         this.userDetailsForNavbar.name = userDetailsForNavbar.name;
       });
+      this.authService.profilePicUpdated.subscribe((profilePic) => {
+        this.userDetailsForNavbar.profilePic = profilePic;
+      });
     }
 
   onLoginClick() {
@@ -45,6 +48,7 @@ export class NavbarComponent implements OnInit {
     if (this.authService.loggedIn()) {
       this.authService.getUserDetailForNavbar().subscribe(profile => {
             this.userDetailsForNavbar.name = profile.user.name;
+            this.userDetailsForNavbar.profilePic = profile.user.profilePicture;
           });
     }
   }

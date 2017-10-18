@@ -13,6 +13,7 @@ export class AuthService {
   domain = 'http://localhost:3000';
   stateUpdated = new EventEmitter<boolean>();
   userDetailsForNavbarUpdated = new EventEmitter<{}>();
+  profilePicUpdated = new EventEmitter<string>();
   authToken;
   user;
   options;

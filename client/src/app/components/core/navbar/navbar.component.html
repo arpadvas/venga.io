@@ -22,7 +22,7 @@
       </ul>
       <div *ngIf="authService.loggedIn() && userDetailsForNavbar.name" class="avatar navbar-right desktop-only">
         <a routerLink="/profile">
-          <img class="avatar__img">
+          <img [src]="userDetailsForNavbar.profilePic" class="avatar__img">
         </a>
       </div>
     </div>

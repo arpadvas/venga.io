@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import filestack from 'filestack-js';
 import { ProfileService } from '../../../services/profile.service';
 import { ServerResponse } from '../../../models/server-response.model';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-profile-pic',
@@ -15,7 +16,9 @@ export class ProfilePicComponent implements OnInit {
   @Output() processing = new EventEmitter<boolean>();
   @Output() profileUpdated = new EventEmitter<ServerResponse>();
 
-  constructor(private profileService: ProfileService) { }
+  constructor(
+    private profileService: ProfileService,
+    private authService: AuthService) { }
 
   showProfilePicButton() {
     this.profilePicButtonVisible = true;
@@ -48,6 +51,7 @@ export class ProfilePicComponent implements OnInit {
         profilePicture: this.profilePic
       };
       this.saveChanges(profilePicture);
+      this.authService.profilePicUpdated.emit(this.profilePic);
     }
   }
 
