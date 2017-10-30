@@ -1,5 +1,5 @@
 // define user model
-export default class Contact {
+export default class User {
 
     public constructor(
         public email: string,
