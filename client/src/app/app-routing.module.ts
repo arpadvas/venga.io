@@ -18,6 +18,9 @@ const appRoutes: Routes = [
   { path: 'profile',
     loadChildren: './components/profile/profile.module#ProfileModule'
   },
+  { path: 'ascents',
+    loadChildren: './components/ascents/ascents.module#AscentsModule'
+},
   { path: '**', 
     component: HomeComponent,
     canActivate: [NotAuthGuard]
