@@ -11,6 +11,7 @@ const cors = require("cors");
 // import routers
 const TestRouter_1 = require("./routes/TestRouter");
 const AuthRouter_1 = require("./routes/AuthRouter");
+const AscentRouter_1 = require("./routes/AscentRouter");
 // Creates and configures an ExpressJS web server.
 class App {
     // Run configuration methods on the Express instance.
@@ -61,6 +62,7 @@ class App {
         // get REST endpoints
         this.express.use("/api/test", TestRouter_1.default);
         this.express.use("/api/auth", AuthRouter_1.default);
+        this.express.use("/api/ascent", AscentRouter_1.default);
     }
 }
 exports.default = new App().express;

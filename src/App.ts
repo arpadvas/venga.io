@@ -10,6 +10,7 @@ import * as cors from "cors";
 // import routers
 import TestRouter from "./routes/TestRouter";
 import AuthRouter from "./routes/AuthRouter";
+import AscentRouter from "./routes/AscentRouter";
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -70,6 +71,7 @@ class App {
     // get REST endpoints
     this.express.use("/api/test", TestRouter);
     this.express.use("/api/auth", AuthRouter);
+    this.express.use("/api/ascent", AscentRouter);
   }
 
 }
