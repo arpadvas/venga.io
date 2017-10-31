@@ -168,7 +168,6 @@ export class AuthRouter {
    * Renew auth token.
    */
   public async renewAuthToken(req: Request, res: Response, next: NextFunction): Promise<void> {
-    console.log(req.body);
     if (req.body.email) {
         const user: IUserModel = await User.findOne({ email: req.body.email });
         if (user) {
