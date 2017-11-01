@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AscentsComponent } from './ascents.component';
 import { AscentsRoutingModule } from './ascents-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { AscentsService } from '../../services/ascents.service';
 
 @NgModule({
     declarations: [
@@ -12,6 +13,9 @@ import { SharedModule } from '../../shared/shared.module';
         CommonModule,
         AscentsRoutingModule,
         SharedModule
+    ],
+    providers: [
+        AscentsService
     ]
 })
 export class AscentsModule {}

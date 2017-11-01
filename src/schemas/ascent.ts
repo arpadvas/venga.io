@@ -16,7 +16,9 @@ export const ascentSchema: Schema = new Schema({
   grade: { type: String, required: true },
   style: { type: String, required: true },
   sentDate: { type: Date, required: true },
-  senderId: { type: String, required: true } // Schema.Types.ObjectId
+  senderId: { type: String, required: true, default: "123456" }, // Schema.Types.ObjectId
+  cragId: { type: String, required: true, default: "123456" }, // Schema.Types.ObjectId
+  sectorId: { type: String, required: true, default: "123456" } // Schema.Types.ObjectId
 });
 
 ascentSchema.pre("save", function(next: NextFunction): void {

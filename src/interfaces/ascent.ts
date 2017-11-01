@@ -5,4 +5,6 @@ export interface IAscent {
     style: string;
     sentDate: string;
     senderId: string;
+    cragId: string;
+    sectorId: string;
   }

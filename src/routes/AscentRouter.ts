@@ -37,8 +37,7 @@ export class AscentRouter {
             type: req.body.type,
             grade: req.body.grade,
             style: req.body.style,
-            sentDate: req.body.sentDate,
-            senderId: "123456"}); // get if from db
+            sentDate: req.body.sentDate}); // get if from db
         const ascentEntry = await ascent.save();
         if (ascentEntry) {
             res.json({ success: true, message: "Ascent has been saved.", ascent: ascent });

@@ -1,5 +1,5 @@
 export interface Ascent {
-    id: string;
+    id?: string;
     name: string;
     type: string;
     grade: string;
@@ -7,4 +7,5 @@ export interface Ascent {
     sentDate: string;
     senderId: string;
     cragId: string;
+    sectorId: string;
 }
