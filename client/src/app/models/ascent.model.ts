@@ -6,4 +6,5 @@ export interface Ascent {
     style: string;
     sentDate: string;
     senderId: string;
+    cragId: string;
 }
