@@ -18,7 +18,7 @@ export class AppComponent {
       this.user = JSON.parse(localStorage.getItem('user'));
       if (this.user) {
         this.authService.renewAuthToken(this.user).subscribe(data => {
-          console.log(data.message);
+
         });
       }
     }
