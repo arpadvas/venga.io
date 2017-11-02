@@ -15,6 +15,8 @@ import { GET_LOADED_USER_DATA_ACTION, GetLoadedUserDataAction } from './store/ac
 import { EffectsModule } from '@ngrx/effects';
 import { LoadUserDataEffectService } from './store/effects/load-user-data-effect.service';
 import { AscentsService } from './services/ascents.service';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 export const reducers: ActionReducerMap<ApplicationState> = {
   storeData: storeDataReducer,
@@ -56,7 +58,8 @@ function handleGetAscentsAction(state: StoreData, action: GetLoadedUserDataActio
     AppRoutingModule,
     CoreModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([LoadUserDataEffectService])
+    EffectsModule.forRoot([LoadUserDataEffectService]),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
     AscentsService
