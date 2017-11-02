@@ -1,23 +1,20 @@
-// import core angular modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-
-// import custom modules
 import { SharedModule } from './shared/shared.module';
 import { TimelineModule } from './components/timeline/timeline.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './components/core/core.module';
-
-// import components
 import { AppComponent } from './app.component';
-
 import { StoreModule, Action } from '@ngrx/store';
 import { ApplicationState } from './store/application-state';
 import { StoreData, INITIAL_STORE_DATA } from './store/store-data';
 import { UiState, INITIAL_UI_STATE } from './store/ui-state';
 import { ActionReducerMap } from '@ngrx/store';
-import { GET_ASCENTS_ACTION, GetUserDataAction } from './store/actions';
+import { GET_LOADED_USER_DATA_ACTION, GetLoadedUserDataAction } from './store/actions';
+import { EffectsModule } from '@ngrx/effects';
+import { LoadUserDataEffectService } from './store/effects/load-user-data-effect.service';
+import { AscentsService } from './services/ascents.service';
 
 export const reducers: ActionReducerMap<ApplicationState> = {
   storeData: storeDataReducer,
@@ -27,7 +24,7 @@ export const reducers: ActionReducerMap<ApplicationState> = {
 function storeDataReducer(state: StoreData = INITIAL_STORE_DATA, action: Action): StoreData {
 
   switch (action.type) {
-      case GET_ASCENTS_ACTION:
+      case GET_LOADED_USER_DATA_ACTION:
           return handleGetAscentsAction(state, action);
 
       default:
@@ -40,7 +37,7 @@ function uiStateReducer(state: UiState = INITIAL_UI_STATE, action: Action): UiSt
       return state;
   }
 
-function handleGetAscentsAction(state: StoreData, action: GetUserDataAction): StoreData {
+function handleGetAscentsAction(state: StoreData, action: GetLoadedUserDataAction): StoreData {
   const ascents = action.payload;
   const newState: StoreData = Object.assign({}, state);
   newState.ascents = ascents;
@@ -58,10 +55,11 @@ function handleGetAscentsAction(state: StoreData, action: GetUserDataAction): St
     TimelineModule,
     AppRoutingModule,
     CoreModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([LoadUserDataEffectService])
   ],
   providers: [
-    
+    AscentsService
   ],
   bootstrap: [AppComponent]
 })

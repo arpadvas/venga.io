@@ -16,8 +16,6 @@ import { AscentsListComponent } from './ascents-list/ascents-list.component';
         AscentsRoutingModule,
         SharedModule
     ],
-    providers: [
-        AscentsService
-    ]
+    providers: []
 })
 export class AscentsModule {}
