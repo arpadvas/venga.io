@@ -4,10 +4,12 @@ import { AscentsComponent } from './ascents.component';
 import { AscentsRoutingModule } from './ascents-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { AscentsService } from '../../services/ascents.service';
+import { AscentsListComponent } from './ascents-list/ascents-list.component';
 
 @NgModule({
     declarations: [
-        AscentsComponent
+        AscentsComponent,
+        AscentsListComponent
     ],
     imports: [
         CommonModule,

@@ -1,0 +1,28 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Ascents</h3>
+  </div>
+    <div class="panel-body no-padding">
+      <div class="table-responsive">
+        <table class="table">
+          <tr>
+            <th style="width:30%">Name&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th style="width:25%">Style&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th style="width:10%">Grade&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th style="width:25%">Date&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>	
+            <th style="width:10%"></th>
+          </tr>
+          <tr *ngFor='let ascent of ascents'>
+            <td class="blue">{{ascent.name}}</td>
+            <td>{{ascent.style}}</td>
+            <td>{{ascent.grade}}</td>
+            <td>{{ascent.sentDate | date: 'shortDate'}}</td>
+            <td>
+              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>&nbsp;
+              <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+            </td>	
+          </tr>
+        </table>
+        </div>
+    </div>
+</div>
