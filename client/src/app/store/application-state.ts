@@ -6,8 +6,3 @@ export interface ApplicationState {
     storeData: StoreData,
     uiState: UiState
 }
-
-export const INITIAL_APP_STATE: ApplicationState = {
-  storeData: INITIAL_STORE_DATA,
-  uiState: INITIAL_UI_STATE 
-};

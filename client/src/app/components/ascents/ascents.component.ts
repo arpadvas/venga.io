@@ -22,7 +22,6 @@ export class AscentsComponent implements OnInit {
   ngOnInit() {
     // TODO: get crags and sectors with forkjoin
     this.ascentsService.getAscents().subscribe((ascents: Ascent[]) => {
-      console.log(ascents);
       this.store.dispatch(
         new GetUserDataAction(ascents)
       );
