@@ -1,4 +1,4 @@
-import { Ascent } from '../models/ascent.model';
+import { Ascent } from '../../models/ascent.model';
 import { StoreData } from './store-data';
 
 export interface StoreData {

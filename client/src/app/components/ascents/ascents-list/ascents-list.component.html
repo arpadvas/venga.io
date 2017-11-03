@@ -18,7 +18,7 @@
             <td>{{ascent.grade}}</td>
             <td>{{ascent.sentDate | date: 'shortDate'}}</td>
             <td>
-              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>&nbsp;
+              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" (click)="selectAscent(ascent._id)"></i>&nbsp;
               <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
             </td>	
           </tr>

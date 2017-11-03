@@ -9,7 +9,7 @@
 
     <hr>
 
-    <ascents-list [ascents]="ascents$ | async"></ascents-list>
+    <ascents-list [ascents]="ascents$ | async" (ascentSelected)="onAscentSelected($event)"></ascents-list>
 
   </div> 
   <!-- end of main content -->

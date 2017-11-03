@@ -1,11 +1,11 @@
 import { UiState } from './ui-state';
 
 export interface UiState {
-    currentAscent: string;
+    currentAscentId: string;
     currentUser: string;
 }
 
 export const INITIAL_UI_STATE: UiState = {
-    currentAscent: undefined,
+    currentAscentId: undefined,
     currentUser: undefined
 };
