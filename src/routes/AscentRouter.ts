@@ -74,7 +74,8 @@ export class AscentRouter {
               sentDate: req.body.sentDate,
               senderId: userId,
               cragId: req.body.cragId,
-              sectorId: req.body.sectorId});
+              sectorId: req.body.sectorId
+            });
           const ascentEntry = await ascent.save();
           if (ascentEntry) {
               res.json({ success: true, message: "Ascent has been saved.", ascent: ascent });

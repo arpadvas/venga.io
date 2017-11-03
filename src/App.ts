@@ -11,6 +11,7 @@ import * as cors from "cors";
 import TestRouter from "./routes/TestRouter";
 import AuthRouter from "./routes/AuthRouter";
 import AscentRouter from "./routes/AscentRouter";
+import CragRouter from "./routes/CragRouter";
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -72,6 +73,7 @@ class App {
     this.express.use("/api/test", TestRouter);
     this.express.use("/api/auth", AuthRouter);
     this.express.use("/api/ascent", AscentRouter);
+    this.express.use("/api/crag", CragRouter);
   }
 
 }
