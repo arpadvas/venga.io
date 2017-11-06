@@ -1,9 +1,12 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { User, IUserModel } from "../schemas/user";
 import { Ascent, IAscentModel } from "../schemas/ascent";
+import { Crag } from "../schemas/crag";
+import { Sector } from "../schemas/sector";
 import { asyncWrap } from "../helpers/async";
 import { config } from "../config/index";
 import requiresLogin from "../middlewares/requiresLogin";
+import * as _ from "lodash";
 
 export class AscentRouter {
   router: Router;
@@ -40,7 +43,19 @@ export class AscentRouter {
         if (!ascents || ascents.length === 0) {
           res.json({ success: false, message: "Could not find any ascent entry." });
         } else {
-          res.send(ascents);
+          let crags = [];
+          let sectors = [];
+          _.forEach(ascents, async (elem) => {
+            const crag = await Crag.findOne({ _id: elem.cragId });
+            if (crag) {
+              crags.push(crag);
+              const sector = await Sector.findOne({ _id: elem.sectorId });
+              if (sector) {
+                sectors.push(sector);
+              }
+              res.json({ ascents: ascents, crags: crags, sectors: sectors });
+            }
+          });
         }
       } else {
         res.json({ success: false, message: "User is not found!" });
