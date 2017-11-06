@@ -6,7 +6,7 @@ import { Sector } from "../schemas/sector";
 import { asyncWrap } from "../helpers/async";
 import { config } from "../config/index";
 import requiresLogin from "../middlewares/requiresLogin";
-import * as _ from "lodash";
+import { asyncForEach } from "../helpers/asyncforeach";
 
 export class AscentRouter {
   router: Router;
@@ -45,17 +45,21 @@ export class AscentRouter {
         } else {
           let crags = [];
           let sectors = [];
-          _.forEach(ascents, async (elem) => {
-            const crag = await Crag.findOne({ _id: elem.cragId });
-            if (crag) {
-              crags.push(crag);
+          const findCragsAndSectors = async () => {
+            await asyncForEach(ascents, async (elem) => {
+              let cragArray = [];
+              const crag = await Crag.findOne({ _id: elem.cragId });
+              if (crag) {
+                crags.push(crag);
+              }
               const sector = await Sector.findOne({ _id: elem.sectorId });
               if (sector) {
                 sectors.push(sector);
               }
-              res.json({ ascents: ascents, crags: crags, sectors: sectors });
-            }
-          });
+            });
+            res.json({ ascents: ascents, crags: crags, sectors: sectors });
+          }
+          findCragsAndSectors();
         }
       } else {
         res.json({ success: false, message: "User is not found!" });
