@@ -1,5 +1,5 @@
 export interface Ascent {
-    id?: string;
+    _id: string;
     name: string;
     type: string;
     grade: string;

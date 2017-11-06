@@ -3,5 +3,5 @@ import { ApplicationState } from '../../../store/interfaces/application-state';
 
 
 export function mapStateToAscents(state: ApplicationState): Ascent[] {
-    return state.storeData.ascents;
+    return state.storeData.ascentData.ascents;
   }

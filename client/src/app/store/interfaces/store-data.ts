@@ -1,11 +1,14 @@
-import { Ascent } from '../../models/ascent.model';
+import { AscentData } from '../../models/ascent-data.model';
 import { StoreData } from './store-data';
 
 export interface StoreData {
-    ascents: Ascent[];
-    // TODO: add crags and sectors
+    ascentData: AscentData;
 }
 
 export const INITIAL_STORE_DATA: StoreData = {
-    ascents: []
+    ascentData: {
+        ascents: [],
+        crags: [],
+        sectors: []
+    }
 };

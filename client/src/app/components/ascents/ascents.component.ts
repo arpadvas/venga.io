@@ -32,7 +32,7 @@ export class AscentsComponent implements OnInit {
   ngOnInit() {
 
     this.store.dispatch(
-      new Actions.LoadUserDataAction()
+      new Actions.LoadAscentDataAction()
     );
 
   }

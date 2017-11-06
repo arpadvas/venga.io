@@ -10,8 +10,8 @@ import * as StateActions from  './actions';
 function storeDataReducer(state: StoreData = INITIAL_STORE_DATA, action: Actions): StoreData {
     
     switch (action.type) {
-        case StateActions.GET_LOADED_USER_DATA_ACTION:
-            return Helpers.handleGetAscentsAction(state, action);
+        case StateActions.GET_LOADED_ASCENT_DATA_ACTION:
+            return Helpers.handleGetAscentDataAction(state, action);
         default:
             return state;
     }
@@ -28,6 +28,6 @@ function uiStateReducer(state: UiState = INITIAL_UI_STATE, action: Actions): UiS
 }
 
 export const reducers: ActionReducerMap<ApplicationState> = {
-storeData: storeDataReducer,
-uiState: uiStateReducer
+    storeData: storeDataReducer,
+    uiState: uiStateReducer
 };

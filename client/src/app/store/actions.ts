@@ -1,23 +1,23 @@
 import { Action } from '@ngrx/store';
-import { Ascent } from '../models/ascent.model';
+import { AscentData } from '../models/ascent-data.model';
 
-export const GET_LOADED_USER_DATA_ACTION = 'GET_LOADED_USER_DATA_ACTION';
-export const LOAD_USER_DATA_ACTION = 'LOAD_USER_DATA_ACTION';
+export const GET_LOADED_ASCENT_DATA_ACTION = 'GET_LOADED_ASCENT_DATA_ACTION';
+export const LOAD_ASCENT_DATA_ACTION = 'LOAD_ASCENT_DATA_ACTION';
 export const ASCENT_SELECTED_ACTION = 'ASCENT_SELECTED_ACTION';
 
-export class GetLoadedUserDataAction implements Action {
+export class GetLoadedAscentDataAction implements Action {
 
-    readonly type = GET_LOADED_USER_DATA_ACTION;
+    readonly type = GET_LOADED_ASCENT_DATA_ACTION;
 
-    constructor(public payload?: Ascent[]) {
+    constructor(public payload?: AscentData) {
 
     }
 
 }
 
-export class LoadUserDataAction implements Action {
+export class LoadAscentDataAction implements Action {
 
-    readonly type = LOAD_USER_DATA_ACTION;
+    readonly type = LOAD_ASCENT_DATA_ACTION;
 
 }
 
@@ -31,4 +31,4 @@ export class AscentSelectedAction implements Action {
     
 }
 
-export type Actions = GetLoadedUserDataAction | LoadUserDataAction | AscentSelectedAction;
+export type Actions = GetLoadedAscentDataAction | LoadAscentDataAction | AscentSelectedAction;

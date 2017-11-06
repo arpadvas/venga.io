@@ -8,7 +8,7 @@ import { CoreModule } from './components/core/core.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { LoadUserDataEffectService } from './store/effects/load-user-data-effect.service';
+import { LoadAscentDataEffectService } from './store/effects/load-ascent-data-effect.service';
 import { AscentsService } from './services/ascents.service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './store/reducers';
@@ -25,7 +25,7 @@ import { reducers } from './store/reducers';
     AppRoutingModule,
     CoreModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([LoadUserDataEffectService]),
+    EffectsModule.forRoot([LoadAscentDataEffectService]),
     StoreDevtoolsModule.instrument()
   ],
   providers: [

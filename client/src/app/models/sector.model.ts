@@ -1,5 +1,5 @@
 export interface Sector {
-    id: string;
+    _id: string;
     name: string;
     cragId: string;
 }

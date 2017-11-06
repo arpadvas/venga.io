@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { Ascent } from '../models/ascent.model';
+import { AscentData } from '../models/ascent-data.model';
 
 @Injectable()
 export class AscentsService {
@@ -34,7 +34,7 @@ export class AscentsService {
   }
 
   // get user profile
-  getAscents(): Observable<Array<Ascent>> {
+  getAscents(): Observable<AscentData> {
     this.createAuthenticationHeaders();
     return this.http.get(`${this.domain}/api/ascent/ascents`, this.options)
       .map(res => res.json())

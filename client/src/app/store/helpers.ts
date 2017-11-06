@@ -1,10 +1,10 @@
 import { StoreData } from './interfaces/store-data';
-import { AscentSelectedAction, GetLoadedUserDataAction } from './actions';
+import { AscentSelectedAction, GetLoadedAscentDataAction } from './actions';
 import { UiState } from './interfaces/ui-state';
 
-export function handleGetAscentsAction(state: StoreData, action: GetLoadedUserDataAction): StoreData {
+export function handleGetAscentDataAction(state: StoreData, action: GetLoadedAscentDataAction): StoreData {
     const newState: StoreData = Object.assign({}, state);
-    newState.ascents = action.payload;
+    newState.ascentData = action.payload;
     return newState;
 }
 
