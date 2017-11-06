@@ -16,7 +16,7 @@ import { AscentVM } from '../../models/ascent.vm';
 })
 export class AscentsComponent implements OnInit {
 
-  ascents$: Observable<Array<AscentVM>>; // TODO:send composed data with crags by using select (section4 lectior 30)
+  ascents$: Observable<Array<AscentVM>>;
 
   constructor(
     private store: Store<ApplicationState>

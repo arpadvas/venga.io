@@ -43,11 +43,11 @@ export class AscentRouter {
         if (!ascents || ascents.length === 0) {
           res.json({ success: false, message: "Could not find any ascent entry." });
         } else {
-          let crags = [];
-          let sectors = [];
+          const crags = [];
+          const sectors = [];
           const findCragsAndSectors = async () => {
             await asyncForEach(ascents, async (elem) => {
-              let cragArray = [];
+              const cragArray = [];
               const crag = await Crag.findOne({ _id: elem.cragId });
               if (crag) {
                 crags.push(crag);
@@ -58,7 +58,7 @@ export class AscentRouter {
               }
             });
             res.json({ ascents: ascents, crags: crags, sectors: sectors });
-          }
+          };
           findCragsAndSectors();
         }
       } else {
