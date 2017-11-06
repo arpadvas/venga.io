@@ -7,6 +7,7 @@ import * as Actions from '../../store/actions';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import * as Mapper from './mappers/ascents-mappers';
+import { AscentVM } from '../../models/ascent.vm';
 
 @Component({
   selector: 'app-ascents',
@@ -15,12 +16,12 @@ import * as Mapper from './mappers/ascents-mappers';
 })
 export class AscentsComponent implements OnInit {
 
-  ascents$: Observable<Array<Ascent>>; // TODO:send composed data with crags by using select (section4 lectior 30)
+  ascents$: Observable<Array<AscentVM>>; // TODO:send composed data with crags by using select (section4 lectior 30)
 
   constructor(
     private store: Store<ApplicationState>
   ) {
-      this.ascents$ = store.map(Mapper.mapStateToAscents);
+      this.ascents$ = store.select(Mapper.mapStateToAscents);
   }
 
   onAscentSelected(selectedAscentId: string) {

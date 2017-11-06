@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Ascent } from '../../../models/ascent.model';
+import { AscentVM } from '../../../models/ascent.vm';
 
 @Component({
   selector: 'ascents-list',
@@ -8,7 +8,7 @@ import { Ascent } from '../../../models/ascent.model';
 })
 export class AscentsListComponent implements OnInit {
 
-  @Input() ascents: Ascent[];
+  @Input() ascents: AscentVM[];
   @Output() ascentSelected = new EventEmitter<string>();
 
   constructor() { }

@@ -6,19 +6,21 @@
       <div class="table-responsive">
         <table class="table">
           <tr>
-            <th style="width:30%">Name&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th style="width:25%">Style&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th style="width:10%">Grade&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th style="width:25%">Date&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>	
+            <th style="width:20%">Name&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th style="width:20%">Crag&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th style="width:20%">Style&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th style="width:15%">Grade&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th style="width:15%">Date&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>	
             <th style="width:10%"></th>
           </tr>
           <tr *ngFor='let ascent of ascents'>
             <td class="blue">{{ascent.name}}</td>
+            <td>{{ascent.location.crag}}</td>
             <td>{{ascent.style}}</td>
             <td>{{ascent.grade}}</td>
             <td>{{ascent.sentDate | date: 'shortDate'}}</td>
             <td>
-              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" (click)="selectAscent(ascent._id)"></i>&nbsp;
+              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" (click)="selectAscent(ascent.id)"></i>&nbsp;
               <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
             </td>	
           </tr>
