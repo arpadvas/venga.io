@@ -13,6 +13,7 @@ const TestRouter_1 = require("./routes/TestRouter");
 const AuthRouter_1 = require("./routes/AuthRouter");
 const AscentRouter_1 = require("./routes/AscentRouter");
 const CragRouter_1 = require("./routes/CragRouter");
+const SectorRouter_1 = require("./routes/SectorRouter");
 // Creates and configures an ExpressJS web server.
 class App {
     // Run configuration methods on the Express instance.
@@ -65,6 +66,7 @@ class App {
         this.express.use("/api/auth", AuthRouter_1.default);
         this.express.use("/api/ascent", AscentRouter_1.default);
         this.express.use("/api/crag", CragRouter_1.default);
+        this.express.use("/api/sector", SectorRouter_1.default);
     }
 }
 exports.default = new App().express;

@@ -12,6 +12,7 @@ import TestRouter from "./routes/TestRouter";
 import AuthRouter from "./routes/AuthRouter";
 import AscentRouter from "./routes/AscentRouter";
 import CragRouter from "./routes/CragRouter";
+import SectorRouter from "./routes/SectorRouter";
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -74,6 +75,7 @@ class App {
     this.express.use("/api/auth", AuthRouter);
     this.express.use("/api/ascent", AscentRouter);
     this.express.use("/api/crag", CragRouter);
+    this.express.use("/api/sector", SectorRouter);
   }
 
 }

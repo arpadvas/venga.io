@@ -22,9 +22,9 @@ export class AscentRouter {
   public async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
       const ascents = await Ascent.find({});
       if (!ascents || ascents.length === 0) {
-        return next(new Error("Could not find any ascent entry."));
+        res.json({ success: false, message: "Could not find any ascent entry." });
       } else {
-        res.send(ascents);
+          res.send(ascents);
       }
   }
 
@@ -38,7 +38,7 @@ export class AscentRouter {
       if (user) {
         const ascents = await Ascent.find({ senderId: userId });
         if (!ascents || ascents.length === 0) {
-          return next(new Error("Could not find any ascents."));
+          res.json({ success: false, message: "Could not find any ascent entry." });
         } else {
           res.send(ascents);
         }
@@ -81,13 +81,13 @@ export class AscentRouter {
               res.json({ success: true, message: "Ascent has been saved.", ascent: ascent });
           }
         } else {
-                res.json({ success: false, message: "Make sure ascent details were provided." });
+            res.json({ success: false, message: "Make sure ascent details were provided." });
         }
       } else {
-        res.json({ success: false, message: "User is not found!" });
+          res.json({ success: false, message: "User is not found!" });
       }
     } else {
-      res.json({ success: false, message: "Token has not been provided!" });
+        res.json({ success: false, message: "Token has not been provided!" });
     }
   }
 

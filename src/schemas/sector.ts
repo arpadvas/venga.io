@@ -12,7 +12,8 @@ export interface ISectorModel extends ISector, Document {
 export const sectorSchema: Schema = new Schema({
   createdAt: Date,
   name: { type: String, required: true },
-  cragId: { type: String, required: true } // Schema.Types.ObjectId
+  cragId: { type: Schema.Types.ObjectId, required: true },
+  creatorId: { type: Schema.Types.ObjectId, required: true }
 });
 
 sectorSchema.pre("save", function(next: NextFunction): void {

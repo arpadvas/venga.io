@@ -16,8 +16,7 @@ export const cragSchema: Schema = new Schema({
   country: { type: String, required: true },
   sectorIds: { type: [String], default: [] },
   ascentIds: { type: [String], default: [] },
-  // creatorId: { type: Schema.Types.ObjectId, required: true }
-  creatorId: { type: String, default: "123456" }
+  creatorId: { type: Schema.Types.ObjectId, required: true }
 });
 
 cragSchema.pre("save", function(next: NextFunction): void {
