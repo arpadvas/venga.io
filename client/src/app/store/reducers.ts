@@ -12,6 +12,8 @@ function storeDataReducer(state: StoreData = INITIAL_STORE_DATA, action: Actions
     switch (action.type) {
         case StateActions.GET_LOADED_ASCENT_DATA_ACTION:
             return Helpers.handleGetAscentDataAction(state, action);
+        case StateActions.ADD_NEW_ASCENT_ACTION:
+            return Helpers.handleAddNewAscentAction(state, action);
         default:
             return state;
     }
