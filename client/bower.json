@@ -1,0 +1,17 @@
+{
+  "name": "venga.io",
+  "description": "venga",
+  "main": "",
+  "license": "MIT",
+  "homepage": "https://github.com/arpadvas/venga.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-social": "^5.1.1"
+  }
+}

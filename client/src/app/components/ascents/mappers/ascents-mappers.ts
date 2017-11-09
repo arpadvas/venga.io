@@ -16,18 +16,23 @@ export function mapStateToAscents(state: ApplicationState): AscentVM[] {
   const crags: Crag[] = state.storeData.ascentData.crags;
   const sectors: Sector[] = state.storeData.ascentData.sectors;
 
-  return ascents.map(ascent => ({
-    id: ascent._id,
-    name: ascent.name,
-    type: ascent.type,
-    grade: ascent.grade,
-    style: ascent.style,
-    sentDate: ascent.sentDate,
-    location: {
-      country: selector<Crag>(crags, "_id", ascent.cragId).country,
-      crag: selector<Crag>(crags, "_id", ascent.cragId).name,
-      sector: selector<Sector>(sectors, "_id", ascent.sectorId).name
-    }
-  }));
+  if (ascents) {
+    return ascents.map(ascent => ({
+      id: ascent._id,
+      name: ascent.name,
+      type: ascent.type,
+      grade: ascent.grade,
+      style: ascent.style,
+      sentDate: ascent.sentDate,
+      location: {
+        country: selector<Crag>(crags, "_id", ascent.cragId).country,
+        crag: selector<Crag>(crags, "_id", ascent.cragId).name,
+        sector: selector<Sector>(sectors, "_id", ascent.sectorId).name
+      }
+    }));
+  } else {
+    return null;
+  }
+  
 
 }

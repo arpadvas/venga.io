@@ -110,6 +110,30 @@ export class AscentRouter {
     }
   }
 
+  // public async addAscent(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+
+  //       if (req.body.name &&
+  //         req.body.type &&
+  //         req.body.grade &&
+  //         req.body.style &&
+  //         req.body.sentDate) {
+  //         const ascent = new Ascent({
+  //             name: req.body.name,
+  //             type: req.body.type,
+  //             grade: req.body.grade,
+  //             style: req.body.style,
+  //             sentDate: req.body.sentDate
+  //           });
+  //         const ascentEntry = await ascent.save();
+  //         if (ascentEntry) {
+  //             res.json({ success: true, message: "Ascent has been saved.", ascent: ascent });
+  //         }
+  //       } else {
+  //           res.json({ success: false, message: "Make sure ascent details were provided." });
+  //       }
+  // }
+
   /**
    * Take each handler, and attach to one of the Express.Router's
    * endpoints.
@@ -118,6 +142,7 @@ export class AscentRouter {
     this.router.get("/allascents", asyncWrap(this.getAll));
     this.router.get("/ascents", requiresLogin, asyncWrap(this.getUserAscents));
     this.router.post("/ascents", requiresLogin, asyncWrap(this.addAscent));
+    // this.router.post("/ascents", asyncWrap(this.addAscent));
   }
 
 }

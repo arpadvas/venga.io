@@ -52,7 +52,7 @@ export class SectorRouter {
 }
 
   /**
-   * Add new crag.
+   * Add new sector.
    */
 
   public async addSector(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -81,23 +81,23 @@ export class SectorRouter {
     }
   }
 
-//   public async addSector(req: Request, res: Response, next: NextFunction): Promise<void> {
-//     if (req.body.name &&
-//         req.body.cragId
-//     ) {
-//         const sector = new Sector({
-//             name: req.body.name,
-//             cragId: req.body.cragId
-//         });
-//         console.log(sector);
-//         const sectorEntry = await sector.save();
-//         if (sectorEntry) {
-//             res.json({ success: true, message: "Sector has been saved.", sector: sector });
-//         }
-//     } else {
-//             res.json({ success: false, message: "Make sure crag details were provided." });
-//     }
-//   }
+  // public async addSector(req: Request, res: Response, next: NextFunction): Promise<void> {
+  //   if (req.body.name &&
+  //       req.body.cragId
+  //   ) {
+  //       const sector = new Sector({
+  //           name: req.body.name,
+  //           cragId: req.body.cragId
+  //       });
+  //       console.log(sector);
+  //       const sectorEntry = await sector.save();
+  //       if (sectorEntry) {
+  //           res.json({ success: true, message: "Sector has been saved.", sector: sector });
+  //       }
+  //   } else {
+  //           res.json({ success: false, message: "Make sure crag details were provided." });
+  //   }
+  // }
 
   /**
    * Take each handler, and attach to one of the Express.Router's
