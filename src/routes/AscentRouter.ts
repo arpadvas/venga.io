@@ -7,7 +7,7 @@ import { asyncWrap } from "../helpers/async";
 import { config } from "../config/index";
 import requiresLogin from "../middlewares/requiresLogin";
 import { asyncForEach } from "../helpers/asyncforeach";
-import * as _ from 'lodash';
+import * as _ from "lodash";
 
 export class AscentRouter {
   router: Router;

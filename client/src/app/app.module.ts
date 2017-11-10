@@ -23,7 +23,6 @@ import { AddAscentEffectService } from 'app/store/effects/add-ascent-effect.serv
     StoreModule.forRoot(reducers),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([LoadAscentDataEffectService, AddAscentEffectService]),
-    // EffectsModule.forRoot([LoadAscentDataEffectService]),
     BrowserModule,
     HttpModule,
     SharedModule,
