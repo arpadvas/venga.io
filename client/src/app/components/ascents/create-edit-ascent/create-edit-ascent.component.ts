@@ -34,9 +34,9 @@ export class CreateEditAscentComponent implements OnInit {
       grade: this.form.value.grade,
       style: this.form.value.style,
       sentDate: '2017-10-11T00:00:00.000Z',
-      senderId: '59c67826f1d1ae22524b7868',
-      cragId: '5a0034b5211e42166177e634',
-      sectorId: '5a0039ad8de7221c3d0453b4'
+      senderId: '5a045440114f510844765a95',
+      cragId: '5a0469e5a0a8150eadfda677',
+      sectorId: '5a046b0e7f5ad90fb20e7264'
     }
     console.log(newAscent);
     this.store.dispatch(

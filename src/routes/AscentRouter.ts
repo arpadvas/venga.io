@@ -7,6 +7,7 @@ import { asyncWrap } from "../helpers/async";
 import { config } from "../config/index";
 import requiresLogin from "../middlewares/requiresLogin";
 import { asyncForEach } from "../helpers/asyncforeach";
+import * as _ from 'lodash';
 
 export class AscentRouter {
   router: Router;
@@ -47,14 +48,19 @@ export class AscentRouter {
           const sectors = [];
           const findCragsAndSectors = async () => {
             await asyncForEach(ascents, async (elem) => {
-              const cragArray = [];
               const crag = await Crag.findOne({ _id: elem.cragId });
               if (crag) {
-                crags.push(crag);
+                const cragFinding =  _.find(crags, ["_id", crag._id]);
+                if (!cragFinding) {
+                  crags.push(crag);
+                }
               }
               const sector = await Sector.findOne({ _id: elem.sectorId });
               if (sector) {
-                sectors.push(sector);
+                const sectorFinding =  _.find(sectors, ["_id", sector._id]);
+                if (!sectorFinding) {
+                  sectors.push(sector);
+                }
               }
             });
             res.json({ ascents: ascents, crags: crags, sectors: sectors });

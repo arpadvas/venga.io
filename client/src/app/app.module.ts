@@ -13,6 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './store/reducers';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { AddAscentEffectService } from 'app/store/effects/add-ascent-effect.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     StoreModule.forRoot(reducers),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([LoadAscentDataEffectService]),
+    EffectsModule.forRoot([LoadAscentDataEffectService, AddAscentEffectService]),
+    // EffectsModule.forRoot([LoadAscentDataEffectService]),
     BrowserModule,
     HttpModule,
     SharedModule,

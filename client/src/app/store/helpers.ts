@@ -17,6 +17,6 @@ export function handleAscentSelectedAction(state: UiState, action: AscentSelecte
 
 export function handleAddNewAscentAction(state: StoreData, action: AddNewAscentAction): StoreData {
     const newState: StoreData = Object.assign({}, state);
-    newState.ascentData.ascents.push(action.payload);
+    // newState.ascentData.ascents.push(action.payload);
     return newState;
 }
