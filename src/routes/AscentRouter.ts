@@ -63,7 +63,7 @@ export class AscentRouter {
                 }
               }
             });
-            res.json({ ascents: ascents, crags: crags, sectors: sectors });
+            res.json({ payload: {ascents: ascents, crags: crags, sectors: sectors} });
           };
           findCragsAndSectors();
         }
@@ -103,7 +103,7 @@ export class AscentRouter {
             });
           const ascentEntry = await ascent.save();
           if (ascentEntry) {
-              res.json({ success: true, message: "Ascent has been saved.", ascent: ascent });
+              res.json({ success: true, message: "Ascent has been saved.", payload: ascent });
           }
         } else {
             res.json({ success: false, message: "Make sure ascent details were provided." });

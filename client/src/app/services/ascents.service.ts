@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { AscentData } from '../models/ascent-data.model';
 import { Ascent } from 'app/models/ascent.model';
+import { ServerResponse } from 'app/models/server-response.model';
 
 @Injectable()
 export class AscentsService {
@@ -35,7 +36,7 @@ export class AscentsService {
   }
 
   // get user's ascents
-  getAscents(): Observable<AscentData> {
+  getAscents(): Observable<ServerResponse> {
     this.createAuthenticationHeaders();
     return this.http.get(`${this.domain}/api/ascent/ascents`, this.options)
       .map(res => res.json())
@@ -44,7 +45,7 @@ export class AscentsService {
         });
   }
 
-  addAscent(ascent): Observable<any> {
+  addAscent(ascent): Observable<ServerResponse> {
     this.createAuthenticationHeaders();
     return this.http.post(`${this.domain}/api/ascent/ascents`, ascent, this.options)
       .map(res => res.json())
@@ -52,6 +53,10 @@ export class AscentsService {
           return this.handleResponseError(res);
         });
   }
+
+  extract (result: any) {
+    return result.payload;
+};
 
   // handle errors
   private handleResponseError(res): Observable<any> {

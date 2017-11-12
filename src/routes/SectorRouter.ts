@@ -41,7 +41,7 @@ export class SectorRouter {
         if (!sectors || sectors.length === 0) {
           res.json({ success: false, message: "Could not find any sector entry." });
         } else {
-          res.send(sectors);
+          res.json({ payload: sectors });
         }
       } else {
         res.json({ success: false, message: "User is not found!" });
@@ -68,7 +68,7 @@ export class SectorRouter {
             });
           const sectorEntry = await sector.save();
           if (sectorEntry) {
-              res.json({ success: true, message: "Sector has been saved.", sector: sector });
+              res.json({ success: true, message: "Sector has been saved.", payload: sector });
           }
         } else {
                 res.json({ success: false, message: "Make sure sector details were provided." });

@@ -41,7 +41,7 @@ export class CragRouter {
         if (!crags || crags.length === 0) {
           res.json({ success: false, message: "Could not find any crag entry." });
         } else {
-          res.send(crags);
+          res.send({ payload: crags });
         }
       } else {
         res.json({ success: false, message: "User is not found!" });
@@ -72,7 +72,7 @@ export class CragRouter {
             });
           const cragEntry = await crag.save();
           if (cragEntry) {
-              res.json({ success: true, message: "Crag has been saved.", crag: crag });
+              res.json({ success: true, message: "Crag has been saved.", payload: crag });
           }
         } else {
                 res.json({ success: false, message: "Make sure crag details were provided." });

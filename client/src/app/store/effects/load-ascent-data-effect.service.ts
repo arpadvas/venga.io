@@ -18,6 +18,6 @@ export class LoadAscentDataEffectService {
   @Effect() ascentData$: Observable<Action> = this.actions$
     .ofType(LOAD_ASCENT_DATA_ACTION)
     .switchMap(() => this.ascentsService.getAscents())
-    .map(ascentData => new GetLoadedAscentDataAction(ascentData));
+    .map(response => new GetLoadedAscentDataAction(response.payload));
 
 }
