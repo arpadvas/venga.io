@@ -7,20 +7,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './components/core/core.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { LoadAscentDataEffectService } from './store/effects/load-ascent-data-effect.service';
 import { AscentsService } from './services/ascents.service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducers } from './store/reducers';
+import { ascentsReducers } from './store/reducers/ascents.reducers';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { AddAscentEffectService } from 'app/store/effects/add-ascent-effect.service';
+import { LoadAscentDataEffectService } from 'app/store/effects/ascents/load-ascent-data-effect.service';
+import { AddAscentEffectService } from 'app/store/effects/ascents/add-ascent-effect.service';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(ascentsReducers),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([LoadAscentDataEffectService, AddAscentEffectService]),
     BrowserModule,

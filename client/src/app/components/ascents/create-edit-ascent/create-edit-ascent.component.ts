@@ -4,9 +4,9 @@ import { AscentStyles } from '../../../constants/ascent-styles';
 import { AscentGrades } from '../../../constants/ascent-grades';
 import { AscentVM } from '../../../models/ascent.vm';
 import { Store } from '@ngrx/store';
-import { ApplicationState } from '../../../store/interfaces/application-state';
-import * as Actions from '../../../store/actions';
+import * as AscentActions from '../../../store/actions/ascents.actions';
 import { Ascent } from '../../../models/ascent.model';
+import { AscentsState } from 'app/store/interfaces/ascents/ascents-state';
 
 @Component({
   selector: 'create-edit-ascent',
@@ -21,7 +21,7 @@ export class CreateEditAscentComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<ApplicationState>
+    private store: Store<AscentsState>
   ) {
     this.createForm();
   }
@@ -38,7 +38,7 @@ export class CreateEditAscentComponent implements OnInit {
     }
     console.log(newAscent);
     this.store.dispatch(
-      new Actions.AddNewAscentAction(newAscent)
+      new AscentActions.AddNewAscentAction(newAscent)
     );
   }
 

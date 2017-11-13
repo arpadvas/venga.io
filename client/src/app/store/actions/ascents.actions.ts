@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
-import { AscentData } from '../models/ascent-data.model';
-import { AscentVM } from '../models/ascent.vm';
-import { Ascent } from '../models/ascent.model';
+import { AscentData } from '../../models/ascent-data.model';
+import { AscentVM } from '../../models/ascent.vm';
+import { Ascent } from '../../models/ascent.model';
 
 export const GET_LOADED_ASCENT_DATA_ACTION = 'GET_LOADED_ASCENT_DATA_ACTION';
 export const LOAD_ASCENT_DATA_ACTION = 'LOAD_ASCENT_DATA_ACTION';
