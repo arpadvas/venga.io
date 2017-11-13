@@ -28,13 +28,11 @@ export class CreateEditAscentComponent implements OnInit {
 
   onSubmitForm() {
     const newAscent: Ascent = {
-      _id: '4546465',
       name: this.form.value.ascentName,
       type: 'sport',
       grade: this.form.value.grade,
       style: this.form.value.style,
       sentDate: '2017-10-11T00:00:00.000Z',
-      senderId: '5a045440114f510844765a95',
       cragId: '5a0469e5a0a8150eadfda677',
       sectorId: '5a046b0e7f5ad90fb20e7264'
     }
