@@ -36,3 +36,7 @@ export function mapStateToAscents(state: AscentsState): AscentVM[] {
   
 
 }
+
+export function mapStateToIsAddingOrEditingAscent(state: AscentsState): boolean {
+  return state.ascentsUiState.isAddingOrEditingAscent;
+}

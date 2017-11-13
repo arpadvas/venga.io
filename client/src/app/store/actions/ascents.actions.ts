@@ -7,6 +7,7 @@ export const GET_LOADED_ASCENT_DATA_ACTION = 'GET_LOADED_ASCENT_DATA_ACTION';
 export const LOAD_ASCENT_DATA_ACTION = 'LOAD_ASCENT_DATA_ACTION';
 export const ASCENT_SELECTED_ACTION = 'ASCENT_SELECTED_ACTION';
 export const ADD_NEW_ASCENT_ACTION = 'ADD_NEW_ASCENT_ACTION';
+export const TOGGLE_ASCENT_FORM_ACTION = 'TOGGLE_ASCENT_FORM_ACTION';
 
 export class GetLoadedAscentDataAction implements Action {
 
@@ -36,12 +37,22 @@ export class AscentSelectedAction implements Action {
 
 export class AddNewAscentAction implements Action {
     
-        readonly type = ADD_NEW_ASCENT_ACTION;
+    readonly type = ADD_NEW_ASCENT_ACTION;
 
-        constructor(public payload?: Ascent) {
-            
-        }
-    
+    constructor(public payload?: Ascent) {
+        
     }
+    
+}
 
-export type Actions = GetLoadedAscentDataAction | LoadAscentDataAction | AscentSelectedAction | AddNewAscentAction;
+export class ToggleAscentFormAction implements Action {
+    
+    readonly type = TOGGLE_ASCENT_FORM_ACTION;
+
+    constructor(public payload?: boolean) {
+        
+    }
+    
+}
+
+export type Actions = GetLoadedAscentDataAction | LoadAscentDataAction | AscentSelectedAction | AddNewAscentAction | ToggleAscentFormAction;

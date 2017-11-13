@@ -17,16 +17,24 @@ import { AscentsState } from 'app/store/interfaces/ascents/ascents-state';
 export class AscentsComponent implements OnInit {
 
   ascents$: Observable<Array<AscentVM>>;
+  isAddingOrEditingAscent$: Observable<boolean>;
 
   constructor(
     private store: Store<AscentsState>
   ) {
       this.ascents$ = store.select(Mapper.mapStateToAscents);
+      this.isAddingOrEditingAscent$ = store.select(Mapper.mapStateToIsAddingOrEditingAscent);
   }
 
   onAscentSelected(selectedAscentId: string) {
     this.store.dispatch(
       new AscentActions.AscentSelectedAction(selectedAscentId)
+    );
+  }
+
+  onToggleAscentForm() {
+    this.store.dispatch(
+      new AscentActions.ToggleAscentFormAction()
     );
   }
 

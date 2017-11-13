@@ -9,7 +9,9 @@
 
     <hr>
 
-    <create-edit-ascent></create-edit-ascent>
+    <button type="button" class="btn btn-custom" (click)="onToggleAscentForm()"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Ascent</button>
+
+    <create-edit-ascent *ngIf="isAddingOrEditingAscent$ | async"></create-edit-ascent>
 
     <ascents-list [ascents]="ascents$ | async" (ascentSelected)="onAscentSelected($event)"></ascents-list>
 

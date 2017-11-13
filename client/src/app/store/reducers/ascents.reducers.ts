@@ -24,6 +24,8 @@ function ascentsUiStateReducer(state: AscentsUiState = INITIAL_ASCENTS_UI_STATE,
     switch(action.type) {
         case AscentActions.ASCENT_SELECTED_ACTION:
             return Helpers.handleAscentSelectedAction(state, action);
+        case AscentActions.TOGGLE_ASCENT_FORM_ACTION:
+            return Helpers.handleToggleAscentFormAction(state, action);
         default:
             return state;
     }

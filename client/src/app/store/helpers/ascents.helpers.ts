@@ -20,3 +20,9 @@ export function handleAddNewAscentAction(state: AscentsStoreData, action: Ascent
     // newState.ascentData.ascents.push(action.payload);
     return newState;
 }
+
+export function handleToggleAscentFormAction(state: AscentsUiState, action: AscentActions.ToggleAscentFormAction): AscentsUiState {
+    const newState: AscentsUiState = Object.assign({}, state);
+    newState.isAddingOrEditingAscent = !newState.isAddingOrEditingAscent;
+    return newState;
+}
