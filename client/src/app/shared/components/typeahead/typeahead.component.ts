@@ -28,8 +28,9 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
   constructor() {
   }
 
-  complete() {
-
+  complete(event) {
+    console.log(this.inputRef.nativeElement.value);
+    console.log(event);
   }
 
   fillTextbox(item) {

@@ -2,7 +2,7 @@
     <input type="{{type}}"
            class="form-control"
            placeholder="{{placeHolder}}"
-           (keyup)="complete()"
+           (keyup)="complete($event)"
            (blur)="onChange($event, input.value)"
            autocomplete="off"
            [style.width.%]="widthPercentage"

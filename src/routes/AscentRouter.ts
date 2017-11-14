@@ -73,7 +73,29 @@ export class AscentRouter {
     } else {
       res.json({ success: false, message: "Token has not been provided!" });
     }
-}
+  }
+
+  /**
+   * Search ascents by keyword.
+   */
+  public async queryAscents(req: Request, res: Response, next: NextFunction): Promise<void> {
+    if ((<any>req)["decoded"]) {
+      const userId = (<any>req)["decoded"].userId;
+      const user = await User.findOne({ _id: userId });
+      if (user) {
+        const ascents = await Ascent.find( { name: { $regex: req.params.keyword, $options: "i" }});
+        if (!ascents || ascents.length === 0) {
+          res.json({ success: false, message: "Could not find any ascent entry." });
+        } else {
+          res.json({ payload: {ascents: ascents} });
+        }
+      } else {
+        res.json({ success: false, message: "User is not found!" });
+      }
+    } else {
+      res.json({ success: false, message: "Token has not been provided!" });
+    }
+  }
 
   /**
    * Add new ascent.
@@ -147,6 +169,7 @@ export class AscentRouter {
   init(): void {
     this.router.get("/allascents", asyncWrap(this.getAll));
     this.router.get("/ascents", requiresLogin, asyncWrap(this.getUserAscents));
+    this.router.get("/ascents/:keyword", requiresLogin, asyncWrap(this.queryAscents));
     this.router.post("/ascents", requiresLogin, asyncWrap(this.addAscent));
     // this.router.post("/ascents", asyncWrap(this.addAscent));
   }
