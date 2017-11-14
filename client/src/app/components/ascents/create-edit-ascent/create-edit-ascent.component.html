@@ -5,7 +5,11 @@
     <div class="form-group">
       <label class="col-sm-3 control-label">Name</label>
       <div class="col-sm-9">
-        <input type="text" id="ascentName" name="ascentName" formControlName="ascentName" class="form-control"/>
+        <typeahead formControlName="ascentName"
+                   text="ascent name"
+                   widthPercentage="70"
+                   [control]="form.controls.ascentName">
+        </typeahead>
       </div>
     </div>
 

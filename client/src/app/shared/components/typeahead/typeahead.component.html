@@ -1,0 +1,15 @@
+<div style="position: relative">
+    <input type="{{type}}"
+           class="form-control"
+           placeholder="{{placeHolder}}"
+           (keyup)="complete()"
+           (blur)="onChange($event, input.value)"
+           autocomplete="off"
+           [style.width.%]="widthPercentage"
+           #input/>
+    <div class="dropdown" *ngIf="showDropdown">
+      <ul class="list-group dropdown__list">
+        <li class="list-group-item dropdown__list-item"></li>
+      </ul>
+    </div>
+</div>
