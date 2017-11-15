@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input, ViewChild, ElementRef, forwardRef, AfterViewInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormControl, ControlValueAccessor } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { AscentsService } from 'app/services/ascents.service';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -23,31 +25,28 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
   @Input() placeHolder: string;
   @Input() control: FormControl = new FormControl();
   @ViewChild('input') inputRef: ElementRef;
-  private innerValue: any = '';
+  private innerValue: string = '';
+  suggestions: any[];
 
-  constructor() {
-  }
-
-  complete(event) {
-    console.log(this.inputRef.nativeElement.value);
-    console.log(event);
+  constructor(private ascentsService: AscentsService) {
+  
   }
 
   fillTextbox(item) {
 
   }
 
-  get value(): any {
+  get value(): string {
     return this.innerValue;
   };
 
-  set value(v: any) {
+  set value(v: string) {
       if (v !== this.innerValue) {
           this.innerValue = v;
       }
   }
 
-  writeValue(value: any) {
+  writeValue(value: string) {
     this.innerValue = value;
   }
 
@@ -59,7 +58,7 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
 
   propagateChange = (_: any) => { }
 
-  onChange(e: Event, value: any){
+  onChange(e: Event, value: string){
     this.innerValue = value;
     this.propagateChange(this.innerValue);
 }
@@ -76,10 +75,25 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
         () => {
             if (this.control.value == '' || this.control.value == null || this.control.value == undefined) {
                 this.innerValue = '';      
-                this.inputRef.nativeElement.value = '';                 
+                this.inputRef.nativeElement.value = '';
+                this.showDropdown = false;              
             }
+            
         }
     );
+    this.control.valueChanges
+      .debounceTime(500)
+      .filter((fieldValue: string) => fieldValue.length > 0)
+      .switchMap((fieldValue: string) => this.ascentsService.queryAscents(fieldValue))
+      .subscribe(result => {
+        if (result.payload) {
+          this.suggestions = result.payload;
+          this.showDropdown = true;
+        } else {
+          this.suggestions = [];
+          this.showDropdown = false;
+        }
+      });
   }
 
 }

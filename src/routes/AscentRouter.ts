@@ -87,7 +87,7 @@ export class AscentRouter {
         if (!ascents || ascents.length === 0) {
           res.json({ success: false, message: "Could not find any ascent entry." });
         } else {
-          res.json({ payload: {ascents: ascents} });
+          res.json({ payload: ascents });
         }
       } else {
         res.json({ success: false, message: "User is not found!" });

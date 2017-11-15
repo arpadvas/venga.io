@@ -2,14 +2,13 @@
     <input type="{{type}}"
            class="form-control"
            placeholder="{{placeHolder}}"
-           (keyup)="complete($event)"
-           (blur)="onChange($event, input.value)"
+           (keyup)="onChange($event, input.value)"
            autocomplete="off"
            [style.width.%]="widthPercentage"
            #input/>
     <div class="dropdown" *ngIf="showDropdown">
       <ul class="list-group dropdown__list">
-        <li class="list-group-item dropdown__list-item"></li>
+        <li class="list-group-item dropdown__list-item" *ngFor="let suggestion of suggestions">{{suggestion.name}}</li>
       </ul>
     </div>
 </div>

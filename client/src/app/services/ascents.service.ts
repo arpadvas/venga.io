@@ -45,6 +45,16 @@ export class AscentsService {
         });
   }
 
+  // get user's ascents
+  queryAscents(keyword): Observable<ServerResponse> {
+    this.createAuthenticationHeaders();
+    return this.http.get(`${this.domain}/api/ascent/ascents/${keyword}`, this.options)
+      .map(res => res.json())
+        .catch((res) => {
+          return this.handleResponseError(res);
+        });
+  }
+
   addAscent(ascent): Observable<ServerResponse> {
     this.createAuthenticationHeaders();
     return this.http.post(`${this.domain}/api/ascent/ascents`, ascent, this.options)
