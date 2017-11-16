@@ -37,9 +37,9 @@ export class CreateEditAscentComponent implements OnInit {
       sectorId: '5a046b0e7f5ad90fb20e7264'
     }
     console.log(newAscent);
-    // this.store.dispatch(
-    //   new AscentActions.AddNewAscentAction(newAscent)
-    // );
+    this.store.dispatch(
+      new AscentActions.AddNewAscentAction(newAscent)
+    );
   }
 
   createForm() {

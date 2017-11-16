@@ -238,12 +238,24 @@ body{
 
 .dropdown__list-item {
   border-style: none;
-  cursor:pointer; 
-} 
+  cursor:pointer;
+}
+
+.dropdown__list-item span {
+  word-spacing: normal;
+  letter-spacing: normal;
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+.dropdown__list-item span:nth-child(2) {
+  font-weight: 800;
+}
 
 .dropdown__list-item:hover {
   background-color:#f9f9f9; 
-} 
+}
 
 /*avatar******************************************************************/
 

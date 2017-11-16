@@ -10,6 +10,13 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+interface suggestionHighlighted {
+  full: string;
+  begin: string;
+  middle: string;
+  end: string;
+}
+
 @Component({
   selector: 'typeahead',
   templateUrl: './typeahead.component.html',
@@ -28,6 +35,7 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
   private innerValue: string = '';
   private showDropdown: boolean = false;
   suggestions: any[] = [];
+  suggestionsHighlighted: suggestionHighlighted[];
 
   constructor(private ascentsService: AscentsService) { }
 
@@ -73,6 +81,27 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
     this.showDropdown = false;
   }
 
+  highlightMatches() {
+    let suggestionsHighlighted: suggestionHighlighted[] = [];
+    let suggestionsNameList = this.suggestions.map(suggestion => suggestion.name);
+    suggestionsNameList.forEach((suggestion: string) => {
+      let suggestionSplitted = suggestion.split(this.innerValue);
+      suggestionSplitted.splice(1, 0, this.innerValue);
+      let suggestionHighlighted: suggestionHighlighted = {
+        full: '',
+        begin: '',
+        middle: '',
+        end: ''
+      };
+      suggestionHighlighted.full = suggestion;
+      suggestionHighlighted.begin = suggestionSplitted[0];
+      suggestionHighlighted.middle = suggestionSplitted[1];
+      suggestionHighlighted.end = suggestionSplitted[2];
+      suggestionsHighlighted.push(suggestionHighlighted);
+    });
+    this.suggestionsHighlighted = suggestionsHighlighted;
+  }
+
   suggest() {
     return this.control.valueChanges
     .debounceTime(500)
@@ -83,6 +112,7 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
       if (result.payload) {
         this.suggestions = result.payload;
         this.showDropdown = true;
+        this.highlightMatches();
       } else {
         this.suggestions = [];
         this.showDropdown = false;
