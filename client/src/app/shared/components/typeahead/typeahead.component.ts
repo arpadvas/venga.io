@@ -3,6 +3,7 @@ import { NG_VALUE_ACCESSOR, FormControl, ControlValueAccessor } from '@angular/f
 import { Observable } from 'rxjs/Observable';
 import { AscentsService } from 'app/services/ascents.service';
 import * as _ from 'lodash';
+import { CragsService } from 'app/services/crags.service';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,10 +12,10 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 interface suggestionHighlighted {
-  full: string;
-  begin: string;
-  middle: string;
-  end: string;
+  full: {value: string, class: string};
+  begin: {value: string, class: string};
+  middle: {value: string, class: string};
+  end: {value: string, class: string};
 }
 
 @Component({
@@ -31,13 +32,17 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
   @Input() widthPercentage: string; 
   @Input() placeHolder: string;
   @Input() control: FormControl = new FormControl();
+  @Input() source: string;
   @ViewChild('input') inputRef: ElementRef;
   private innerValue: string = '';
   private showDropdown: boolean = false;
   suggestions: any[] = [];
   suggestionsHighlighted: suggestionHighlighted[];
 
-  constructor(private ascentsService: AscentsService) { }
+  constructor(
+    private ascentsService: AscentsService,
+    private cragsService: CragsService
+  ) { }
 
   get value(): string {
     return this.innerValue;
@@ -71,7 +76,16 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
   ngAfterViewInit(){ }
 
   query(value: string) {
-    return this.ascentsService.queryAscents(value);
+    switch (this.source) {
+      case 'ascent':
+        return this.ascentsService.queryAscents(value);
+      case 'crag':
+        return this.cragsService.queryCrags(value);
+      // case 'sector':
+      //   return this.sectorsService.querySectors(value);
+      default:
+        return null;
+    }
   }
 
   fillTextBox(value: string) {
@@ -88,16 +102,26 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
       let suggestionSplitted = suggestion.split(this.innerValue);
       suggestionSplitted.splice(1, 0, this.innerValue);
       let suggestionHighlighted: suggestionHighlighted = {
-        full: '',
-        begin: '',
-        middle: '',
-        end: ''
+        full: {value: '', class: ''},
+        begin: {value: '', class: ''},
+        middle: {value: '', class: ''},
+        end: {value: '', class: ''}
       };
-      suggestionHighlighted.full = suggestion;
-      suggestionHighlighted.begin = suggestionSplitted[0];
-      suggestionHighlighted.middle = suggestionSplitted[1];
-      suggestionHighlighted.end = suggestionSplitted[2];
+      suggestionHighlighted.full.value = suggestion;
+      suggestionHighlighted.begin.value = suggestionSplitted[0];
+      suggestionHighlighted.middle.value = suggestionSplitted[1];
+      suggestionHighlighted.end.value = suggestionSplitted[2];
       suggestionsHighlighted.push(suggestionHighlighted);
+      suggestionsHighlighted.forEach(obj => {
+        _.forEach(obj, (elem) => {
+          console.log(elem);
+          if (elem.value.indexOf(' ') === 0) {
+            elem.class = 'inline';
+          } else {
+            elem.class = 'inline-block';
+          }
+        });
+      });
     });
     this.suggestionsHighlighted = suggestionsHighlighted;
   }

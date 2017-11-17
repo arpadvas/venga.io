@@ -11,8 +11,8 @@
         <li 
           class="list-group-item dropdown__list-item" 
           *ngFor="let suggestionHighlighted of suggestionsHighlighted" 
-          (click)="fillTextBox(suggestionHighlighted.full)">
-            <span>{{suggestionHighlighted.begin}}</span><span>{{suggestionHighlighted.middle}}</span><span>{{suggestionHighlighted.end}}</span>
+          (click)="fillTextBox(suggestionHighlighted.full.value)">
+            <span [ngClass]="suggestionHighlighted.begin.class">{{suggestionHighlighted.begin.value}}</span><span [ngClass]="suggestionHighlighted.middle.class">{{suggestionHighlighted.middle.value}}</span><span [ngClass]="suggestionHighlighted.end.class">{{suggestionHighlighted.end.value}}</span>
         </li>
       </ul>
     </div>

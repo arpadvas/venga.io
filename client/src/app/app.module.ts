@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { LoadAscentDataEffectService } from 'app/store/effects/ascents/load-ascent-data-effect.service';
 import { AddAscentEffectService } from 'app/store/effects/ascents/add-ascent-effect.service';
+import { CragsService } from 'app/services/crags.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AddAscentEffectService } from 'app/store/effects/ascents/add-ascent-eff
     CoreModule
   ],
   providers: [
-    AscentsService
+    AscentsService,
+    CragsService
   ],
   bootstrap: [AppComponent]
 })

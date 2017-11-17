@@ -4,8 +4,6 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { AscentData } from '../models/ascent-data.model';
-import { Ascent } from 'app/models/ascent.model';
 import { ServerResponse } from 'app/models/server-response.model';
 
 @Injectable()
@@ -45,7 +43,7 @@ export class AscentsService {
         });
   }
 
-  // get user's ascents
+  // search ascents
   queryAscents(keyword): Observable<ServerResponse> {
     this.createAuthenticationHeaders();
     return this.http.get(`${this.domain}/api/ascent/ascents/${keyword}`, this.options)
@@ -55,6 +53,7 @@ export class AscentsService {
         });
   }
 
+  // add ascent
   addAscent(ascent): Observable<ServerResponse> {
     this.createAuthenticationHeaders();
     return this.http.post(`${this.domain}/api/ascent/ascents`, ascent, this.options)
