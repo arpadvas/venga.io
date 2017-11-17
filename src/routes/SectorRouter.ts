@@ -49,7 +49,29 @@ export class SectorRouter {
     } else {
       res.json({ success: false, message: "Token has not been provided!" });
     }
-}
+  }
+
+  /**
+   * Search sectors by keyword.
+   */
+  public async querySectors(req: Request, res: Response, next: NextFunction): Promise<void> {
+    if ((<any>req)["decoded"]) {
+      const userId = (<any>req)["decoded"].userId;
+      const user = await User.findOne({ _id: userId });
+      if (user) {
+        const sectors = await Sector.find( { name: { $regex: req.params.keyword, $options: "i" }});
+        if (!sectors || sectors.length === 0) {
+          res.json({ success: false, message: "Could not find any sectors entry." });
+        } else {
+          res.json({ payload: sectors });
+        }
+      } else {
+        res.json({ success: false, message: "User is not found!" });
+      }
+    } else {
+      res.json({ success: false, message: "Token has not been provided!" });
+    }
+  }
 
   /**
    * Add new sector.
@@ -106,6 +128,7 @@ export class SectorRouter {
   init(): void {
     this.router.get("/allsectors", asyncWrap(this.getAll));
     this.router.get("/sectors", requiresLogin, asyncWrap(this.getSectors));
+    this.router.get("/sectors/:keyword", requiresLogin, asyncWrap(this.querySectors));
     this.router.post("/sectors", requiresLogin, asyncWrap(this.addSector));
     // this.router.post("/sectors", asyncWrap(this.addSector));
   }

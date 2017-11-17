@@ -4,12 +4,10 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { AscentData } from '../models/ascent-data.model';
-import { Ascent } from 'app/models/ascent.model';
 import { ServerResponse } from 'app/models/server-response.model';
 
 @Injectable()
-export class AscentsService {
+export class CragsService {
 
   domain = 'http://localhost:3000';
   authToken;
@@ -35,29 +33,30 @@ export class AscentsService {
     this.authToken = localStorage.getItem('token');
   }
 
-  // get user's ascents
-  getAscents(): Observable<ServerResponse> {
+  // get crags
+  getCrags(): Observable<ServerResponse> {
     this.createAuthenticationHeaders();
-    return this.http.get(`${this.domain}/api/ascent/ascents`, this.options)
+    return this.http.get(`${this.domain}/api/crag/crags`, this.options)
       .map(res => res.json())
         .catch((res) => {
           return this.handleResponseError(res);
         });
   }
 
-  // get user's ascents
-  queryAscents(keyword): Observable<ServerResponse> {
+  // search crags
+  queryCrags(keyword): Observable<ServerResponse> {
     this.createAuthenticationHeaders();
-    return this.http.get(`${this.domain}/api/ascent/ascents/${keyword}`, this.options)
+    return this.http.get(`${this.domain}/api/crag/crags/${keyword}`, this.options)
       .map(res => res.json())
         .catch((res) => {
           return this.handleResponseError(res);
         });
   }
 
-  addAscent(ascent): Observable<ServerResponse> {
+  // add crag
+  addCrag(crag): Observable<ServerResponse> {
     this.createAuthenticationHeaders();
-    return this.http.post(`${this.domain}/api/ascent/ascents`, ascent, this.options)
+    return this.http.post(`${this.domain}/api/crag/crags`, crag, this.options)
       .map(res => res.json())
         .catch((res) => {
           return this.handleResponseError(res);

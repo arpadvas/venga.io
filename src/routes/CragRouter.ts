@@ -49,7 +49,29 @@ export class CragRouter {
     } else {
       res.json({ success: false, message: "Token has not been provided!" });
     }
-}
+  }
+
+  /**
+   * Search crags by keyword.
+   */
+  public async queryCrags(req: Request, res: Response, next: NextFunction): Promise<void> {
+    if ((<any>req)["decoded"]) {
+      const userId = (<any>req)["decoded"].userId;
+      const user = await User.findOne({ _id: userId });
+      if (user) {
+        const crags = await Crag.find( { name: { $regex: req.params.keyword, $options: "i" }});
+        if (!crags || crags.length === 0) {
+          res.json({ success: false, message: "Could not find any crags entry." });
+        } else {
+          res.json({ payload: crags });
+        }
+      } else {
+        res.json({ success: false, message: "User is not found!" });
+      }
+    } else {
+      res.json({ success: false, message: "Token has not been provided!" });
+    }
+  }
 
   /**
    * Add new crag.
@@ -114,6 +136,7 @@ export class CragRouter {
   init(): void {
     this.router.get("/allcrags", asyncWrap(this.getAll));
     this.router.get("/crags", requiresLogin, asyncWrap(this.getCrags));
+    this.router.get("/crags/:keyword", requiresLogin, asyncWrap(this.queryCrags));
     this.router.post("/crags", requiresLogin, asyncWrap(this.addCrag));
     // this.router.post("/crags", asyncWrap(this.addCrag));
   }
