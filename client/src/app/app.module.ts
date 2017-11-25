@@ -15,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { LoadAscentDataEffectService } from 'app/store/effects/ascents/load-ascent-data-effect.service';
 import { AddAscentEffectService } from 'app/store/effects/ascents/add-ascent-effect.service';
 import { CragsService } from 'app/services/crags.service';
+import { TypeaheadService } from 'app/shared/components/typeahead/typeahead.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CragsService } from 'app/services/crags.service';
   ],
   providers: [
     AscentsService,
-    CragsService
+    CragsService,
+    TypeaheadService
   ],
   bootstrap: [AppComponent]
 })

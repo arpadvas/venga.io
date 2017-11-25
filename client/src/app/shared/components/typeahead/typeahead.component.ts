@@ -4,6 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import { AscentsService } from 'app/services/ascents.service';
 import * as _ from 'lodash';
 import { CragsService } from 'app/services/crags.service';
+import { Crag } from 'app/models/crag.model';
+import { Ascent } from 'app/models/ascent.model';
+import 'rxjs/add/operator/map';
+import { ServerResponse } from 'app/models/server-response.model';
+import { TypeaheadService } from 'app/shared/components/typeahead/typeahead.service';
+
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -35,13 +41,13 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
   @Input() source: string;
   @ViewChild('input') inputRef: ElementRef;
   private innerValue: string = '';
-  private showDropdown: boolean = false;
-  suggestions: any[] = [];
-  suggestionsHighlighted: suggestionHighlighted[];
+  private doQuery: boolean = true;
+  // suggestions: Observable<Ascent[] | Crag[]>;
+  suggestions$: Observable<Crag[]>;
+  // suggestionsHighlighted: suggestionHighlighted[];
 
   constructor(
-    private ascentsService: AscentsService,
-    private cragsService: CragsService
+    private typeaheadService: TypeaheadService
   ) { }
 
   get value(): string {
@@ -67,82 +73,51 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
   propagateChange = (_: any) => { }
 
   onChange(e: Event, value: string){
+    this.doQuery = true;
     this.innerValue = value;
-    this.suggestions = [];
-    this.showDropdown = false;
+    // this.suggestions$ = [];
     this.propagateChange(this.innerValue);
 }
 
   ngAfterViewInit(){ }
 
-  query(value: string) {
-    switch (this.source) {
-      case 'ascent':
-        return this.ascentsService.queryAscents(value);
-      case 'crag':
-        return this.cragsService.queryCrags(value);
-      // case 'sector':
-      //   return this.sectorsService.querySectors(value);
-      default:
-        return null;
-    }
-  }
-
   fillTextBox(value: string) {
+    this.doQuery = false;
     this.inputRef.nativeElement.value = value;
     this.innerValue = value;
     this.propagateChange(value);
-    this.showDropdown = false;
   }
 
-  highlightMatches() {
-    let suggestionsHighlighted: suggestionHighlighted[] = [];
-    let suggestionsNameList = this.suggestions.map(suggestion => suggestion.name);
-    suggestionsNameList.forEach((suggestion: string) => {
-      let suggestionSplitted = suggestion.split(this.innerValue);
-      suggestionSplitted.splice(1, 0, this.innerValue);
-      let suggestionHighlighted: suggestionHighlighted = {
-        full: {value: '', class: ''},
-        begin: {value: '', class: ''},
-        middle: {value: '', class: ''},
-        end: {value: '', class: ''}
-      };
-      suggestionHighlighted.full.value = suggestion;
-      suggestionHighlighted.begin.value = suggestionSplitted[0];
-      suggestionHighlighted.middle.value = suggestionSplitted[1];
-      suggestionHighlighted.end.value = suggestionSplitted[2];
-      suggestionsHighlighted.push(suggestionHighlighted);
-      suggestionsHighlighted.forEach(obj => {
-        _.forEach(obj, (elem) => {
-          console.log(elem);
-          if (elem.value.indexOf(' ') === 0) {
-            elem.class = 'inline';
-          } else {
-            elem.class = 'inline-block';
-          }
-        });
-      });
-    });
-    this.suggestionsHighlighted = suggestionsHighlighted;
-  }
-
-  suggest() {
-    return this.control.valueChanges
-    .debounceTime(500)
-    .filter((fieldValue: string) => fieldValue.length > 0)
-    .filter((fieldValue: string) => _.map(this.suggestions, 'name').indexOf(fieldValue) === -1) // not calling API if suggestions name array contains field value 
-    .switchMap((fieldValue: string) => this.query(fieldValue))
-    .subscribe(result => {
-      if (result.payload) {
-        this.suggestions = result.payload;
-        this.showDropdown = true;
-        this.highlightMatches();
-      } else {
-        this.suggestions = [];
-        this.showDropdown = false;
-      }
-    });
-  }
+  // highlightMatches() {
+  //   let suggestionsHighlighted: suggestionHighlighted[] = [];
+  //   let suggestionsNameList = this.suggestions.flatMap(suggestion => suggestion.map(el => el.name));
+  //   suggestionsNameList.forEach((suggestion: string) => {
+  //     let suggestionSplitted = suggestion.split(this.innerValue);
+  //     suggestionSplitted.splice(1, 0, this.innerValue);
+  //     let suggestionHighlighted: suggestionHighlighted = {
+  //       full: {value: '', class: ''},
+  //       begin: {value: '', class: ''},
+  //       middle: {value: '', class: ''},
+  //       end: {value: '', class: ''}
+  //     };
+  //     suggestionHighlighted.full.value = suggestion;
+  //     suggestionHighlighted.begin.value = suggestionSplitted[0];
+  //     suggestionHighlighted.middle.value = suggestionSplitted[1];
+  //     suggestionHighlighted.end.value = suggestionSplitted[2];
+  //     suggestionsHighlighted.push(suggestionHighlighted);
+  //     suggestionsHighlighted.forEach(obj => {
+  //       _.forEach(obj, (elem) => {
+  //         console.log(elem);
+  //         if (elem.value.indexOf(' ') === 0) {
+  //           elem.class = 'inline';
+  //         } else {
+  //           elem.class = 'inline-block';
+  //         }
+  //       });
+  //     });
+  //   });
+  //   this.suggestionsHighlighted = suggestionsHighlighted;
+  // }
 
   ngOnInit() {
     if(this.placeHolder === undefined){
@@ -152,11 +127,13 @@ export class TypeaheadComponent implements OnInit, ControlValueAccessor, AfterVi
         if (this.control.value == '' || this.control.value == null || this.control.value == undefined) {
             this.innerValue = '';      
             this.inputRef.nativeElement.value = '';
-            this.showDropdown = false;              
         } 
       }
     );
-    this.suggest();
+    this.suggestions$ = this.control.valueChanges
+      .debounceTime(500)
+      .switchMap((fieldValue: string) => this.typeaheadService.getSuggestons(this.doQuery ,this.source, fieldValue))
+      .publishReplay(1).refCount();
   }
 
 }

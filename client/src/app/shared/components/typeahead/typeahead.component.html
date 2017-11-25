@@ -6,7 +6,7 @@
            autocomplete="off"
            [style.width.%]="widthPercentage"
            #input/>
-    <div class="dropdown" [ngClass]="{ 'hide': !showDropdown }">
+    <!-- <div class="dropdown">
       <ul class="list-group dropdown__list">
         <li 
           class="list-group-item dropdown__list-item" 
@@ -15,5 +15,15 @@
             <span [ngClass]="suggestionHighlighted.begin.class">{{suggestionHighlighted.begin.value}}</span><span [ngClass]="suggestionHighlighted.middle.class">{{suggestionHighlighted.middle.value}}</span><span [ngClass]="suggestionHighlighted.end.class">{{suggestionHighlighted.end.value}}</span>
         </li>
       </ul>
-    </div>
+    </div> -->
+    <div class="dropdown" *ngIf="(suggestions$ | async)?.length > 0">
+        <ul class="list-group dropdown__list">
+          <li 
+            class="list-group-item dropdown__list-item" 
+            *ngFor="let suggestion of suggestions$ | async" 
+            (click)="fillTextBox(suggestion.name)">
+            {{suggestion.name}}
+          </li>
+        </ul>
+      </div>
 </div>

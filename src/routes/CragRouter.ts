@@ -66,7 +66,7 @@ export class CragRouter {
           res.json({ payload: crags });
         }
       } else {
-        res.json({ success: false, message: "User is not found!" });
+        res.json({ success: false, message: "Crag is not found!" });
       }
     } else {
       res.json({ success: false, message: "Token has not been provided!" });
